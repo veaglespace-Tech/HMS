@@ -1,0 +1,42 @@
+# Environment
+.env
+.env.local
+.env.*.local
+
+# Backend
+backend/target/
+backend/**/target/
+*.class
+*.jar
+*.war
+!gradle-wrapper.jar
+.gradle/
+build/
+
+# Frontend
+frontend/.next/
+frontend/out/
+frontend/node_modules/
+frontend/.env.local
+frontend/.env.production.local
+frontend/next-env.d.ts
+
+# IDE
+.idea/
+*.iml
+.vscode/settings.json
+*.swp
+*.swo
+.DS_Store
+Thumbs.db
+
+# Logs
+*.log
+logs/
+
+# Docker volumes (local bind mounts if any)
+data/
+
+# OS
+.DS_Store
+desktop.ini

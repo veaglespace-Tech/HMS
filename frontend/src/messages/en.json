@@ -1,0 +1,35 @@
+{
+  "common": {
+    "appName": "Arogya HMS",
+    "tagline": "Next-Gen Hospital Management System",
+    "login": "Login",
+    "register": "Register Hospital",
+    "getStarted": "Get Started",
+    "contactSales": "Contact Sales",
+    "pricing": "Pricing",
+    "features": "Features",
+    "modules": "Modules",
+    "save": "Save",
+    "cancel": "Cancel",
+    "submit": "Submit",
+    "next": "Next",
+    "back": "Back",
+    "loading": "Loading..."
+  },
+  "home": {
+    "heroTitle": "The Complete Hospital Management Operating System",
+    "heroSubtitle": "From single-doctor private clinics to 500-bed multi-specialty tertiary hospitals. Digitize patient care, OPD, IPD, lab, pharmacy, and billing with zero paperwork.",
+    "trialBadge": "30-Day Free Trial • No Credit Card Required",
+    "exploreFeatures": "Explore Features",
+    "watchDemo": "Watch 2-Min Demo"
+  },
+  "registration": {
+    "title": "Register Your Healthcare Facility",
+    "subtitle": "Get fully set up in 5 minutes. No upfront payment required.",
+    "step1": "Hospital Details",
+    "step2": "Owner & Admin",
+    "step3": "Plan Selection",
+    "step4": "Documents",
+    "step5": "Email Verification"
+  }
+}

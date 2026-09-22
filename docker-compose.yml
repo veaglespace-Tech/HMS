@@ -1,0 +1,124 @@
+version: "3.9"
+
+services:
+  mysql:
+    image: mysql:8.0
+    container_name: arogya-mysql
+    restart: unless-stopped
+    environment:
+      MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD:-Root@2026}
+      MYSQL_DATABASE: ${MYSQL_DATABASE:-arogya_hms}
+      MYSQL_USER: ${MYSQL_USER:-arogya}
+      MYSQL_PASSWORD: ${MYSQL_PASSWORD:-Arogya@2026}
+    ports:
+      - "3306:3306"
+    volumes:
+      - mysql_data:/var/lib/mysql
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-h", "localhost", "-u", "root", "-p${MYSQL_ROOT_PASSWORD:-Root@2026}"]
+      interval: 10s
+      timeout: 5s
+      retries: 10
+      start_period: 30s
+    networks:
+      - arogya-net
+
+  redis:
+    image: redis:7-alpine
+    container_name: arogya-redis
+    restart: unless-stopped
+    command: redis-server --requirepass ${REDIS_PASSWORD:-Redis@2026}
+    ports:
+      - "6379:6379"
+    volumes:
+      - redis_data:/data
+    healthcheck:
+      test: ["CMD", "redis-cli", "-a", "${REDIS_PASSWORD:-Redis@2026}", "ping"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+    networks:
+      - arogya-net
+
+  minio:
+    image: minio/minio:latest
+    container_name: arogya-minio
+    restart: unless-stopped
+    command: server /data --console-address ":9001"
+    environment:
+      MINIO_ROOT_USER: ${MINIO_ACCESS_KEY:-arogya-minio}
+      MINIO_ROOT_PASSWORD: ${MINIO_SECRET_KEY:-Minio@2026!}
+    ports:
+      - "9000:9000"
+      - "9001:9001"
+    volumes:
+      - minio_data:/data
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:9000/minio/health/live"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+    networks:
+      - arogya-net
+
+  backend:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+    container_name: arogya-backend
+    restart: unless-stopped
+    depends_on:
+      mysql:
+        condition: service_healthy
+      redis:
+        condition: service_healthy
+      minio:
+        condition: service_healthy
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:mysql://mysql:3306/${MYSQL_DATABASE:-arogya_hms}?createDatabaseIfNotExist=true&useSSL=false&allowPublicKeyRetrieval=true&serverTimezone=Asia/Kolkata
+      SPRING_DATASOURCE_USERNAME: ${MYSQL_USER:-arogya}
+      SPRING_DATASOURCE_PASSWORD: ${MYSQL_PASSWORD:-Arogya@2026}
+      SPRING_REDIS_HOST: redis
+      SPRING_REDIS_PORT: 6379
+      SPRING_REDIS_PASSWORD: ${REDIS_PASSWORD:-Redis@2026}
+      MINIO_ENDPOINT: http://minio:9000
+      MINIO_ACCESS_KEY: ${MINIO_ACCESS_KEY:-arogya-minio}
+      MINIO_SECRET_KEY: ${MINIO_SECRET_KEY:-Minio@2026!}
+      MINIO_BUCKET: ${MINIO_BUCKET:-arogya-docs}
+      JWT_SECRET: ${JWT_SECRET:-ArogyaHmsSuperSecretKey2026MustBeAtLeast256BitsLongForHS256}
+      JWT_EXPIRY_MS: ${JWT_EXPIRY_MS:-86400000}
+      SMTP_HOST: ${SMTP_HOST:-smtp.gmail.com}
+      SMTP_PORT: ${SMTP_PORT:-587}
+      SMTP_USER: ${SMTP_USER:-noreply@arogya.in}
+      SMTP_PASS: ${SMTP_PASS:-changeme}
+      APP_BASE_URL: ${APP_BASE_URL:-http://localhost:3000}
+      SPRING_PROFILES_ACTIVE: docker
+    ports:
+      - "8080:8080"
+    networks:
+      - arogya-net
+
+  frontend:
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
+    container_name: arogya-frontend
+    restart: unless-stopped
+    depends_on:
+      - backend
+    environment:
+      NEXT_PUBLIC_API_BASE_URL: ${NEXT_PUBLIC_API_BASE_URL:-http://localhost:8080}
+      NEXT_PUBLIC_APP_NAME: Arogya HMS
+    ports:
+      - "3000:3000"
+    networks:
+      - arogya-net
+
+volumes:
+  mysql_data:
+  redis_data:
+  minio_data:
+
+networks:
+  arogya-net:
+    driver: bridge

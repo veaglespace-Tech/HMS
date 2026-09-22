@@ -1,0 +1,112 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* ─── CSS Variables — Light Mode ──────────────────────────────────────────── */
+@layer base {
+  :root {
+    --background:           210 33% 98%;   /* #F7F9FB canvas */
+    --foreground:           213 57% 10%;   /* #0B1A2A ink */
+    --card:                 0 0% 100%;     /* #FFFFFF surface */
+    --card-foreground:      213 57% 10%;
+    --popover:              0 0% 100%;
+    --popover-foreground:   213 57% 10%;
+    --primary:              166 79% 27%;   /* #0E7C66 */
+    --primary-foreground:   0 0% 100%;
+    --secondary:            210 20% 94%;
+    --secondary-foreground: 213 57% 10%;
+    --muted:                210 20% 94%;
+    --muted-foreground:     215 16% 47%;   /* #475569 neutral */
+    --accent:               38 96% 47%;   /* #F0A202 */
+    --accent-foreground:    0 0% 100%;
+    --destructive:          0 72% 51%;    /* #DC2626 */
+    --destructive-foreground: 0 0% 100%;
+    --border:               210 20% 88%;
+    --input:                210 20% 88%;
+    --ring:                 166 79% 27%;
+    --radius:               0.75rem;
+  }
+
+  .dark {
+    --background:           213 57% 7%;    /* deep ink dark */
+    --foreground:           210 33% 96%;
+    --card:                 213 50% 11%;
+    --card-foreground:      210 33% 96%;
+    --popover:              213 50% 11%;
+    --popover-foreground:   210 33% 96%;
+    --primary:              166 79% 35%;
+    --primary-foreground:   0 0% 100%;
+    --secondary:            213 40% 16%;
+    --secondary-foreground: 210 33% 96%;
+    --muted:                213 40% 16%;
+    --muted-foreground:     215 16% 60%;
+    --accent:               38 96% 47%;
+    --accent-foreground:    0 0% 100%;
+    --destructive:          0 72% 51%;
+    --destructive-foreground: 0 0% 100%;
+    --border:               213 40% 18%;
+    --input:                213 40% 18%;
+    --ring:                 166 79% 35%;
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+  body {
+    @apply bg-background text-foreground font-sans antialiased;
+    font-feature-settings: "rlig" 1, "calt" 1;
+  }
+  h1, h2, h3, h4, h5, h6 {
+    @apply font-semibold tracking-tight;
+  }
+  /* Focus ring */
+  :focus-visible {
+    @apply outline-none ring-2 ring-ring ring-offset-2 ring-offset-background;
+  }
+  /* Smooth scrolling */
+  html {
+    scroll-behavior: smooth;
+  }
+}
+
+@layer components {
+  /* ─── Gradient backgrounds ──────────────────────────────────────────────── */
+  .gradient-primary {
+    background: linear-gradient(135deg, #0E7C66 0%, #0a5e4e 100%);
+  }
+  .gradient-hero {
+    background: linear-gradient(135deg, #0B1A2A 0%, #0E3d30 60%, #0E7C66 100%);
+  }
+  .gradient-canvas {
+    background: linear-gradient(180deg, #F7F9FB 0%, #FFFFFF 100%);
+  }
+
+  /* ─── Glass card ────────────────────────────────────────────────────────── */
+  .glass {
+    @apply bg-white/80 dark:bg-white/5 backdrop-blur-xl border border-white/20 dark:border-white/10;
+  }
+
+  /* ─── Section container ─────────────────────────────────────────────────── */
+  .section-container {
+    @apply max-w-7xl mx-auto px-4 sm:px-6 lg:px-8;
+  }
+
+  /* ─── Scrollbar ─────────────────────────────────────────────────────────── */
+  .custom-scrollbar::-webkit-scrollbar {
+    width: 6px;
+    height: 6px;
+  }
+  .custom-scrollbar::-webkit-scrollbar-track {
+    @apply bg-transparent;
+  }
+  .custom-scrollbar::-webkit-scrollbar-thumb {
+    @apply bg-muted-foreground/20 rounded-full;
+  }
+  .custom-scrollbar::-webkit-scrollbar-thumb:hover {
+    @apply bg-muted-foreground/40;
+  }
+}

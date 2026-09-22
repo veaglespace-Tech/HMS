@@ -1,0 +1,109 @@
+server:
+  port: 8080
+  servlet:
+    context-path: /
+
+spring:
+  application:
+    name: arogya-hms
+
+  datasource:
+    url: ${SPRING_DATASOURCE_URL:jdbc:mysql://localhost:3306/arogya_hms?createDatabaseIfNotExist=true&useSSL=false&allowPublicKeyRetrieval=true&serverTimezone=Asia/Kolkata}
+    username: ${SPRING_DATASOURCE_USERNAME:root}
+    password: ${SPRING_DATASOURCE_PASSWORD:Root}
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    hikari:
+      pool-name: ArogyaHikariPool
+      maximum-pool-size: 20
+      minimum-idle: 5
+      connection-timeout: 30000
+      idle-timeout: 600000
+      max-lifetime: 1800000
+
+  jpa:
+    hibernate:
+      ddl-auto: validate
+    open-in-view: false
+    properties:
+      hibernate:
+        format_sql: false
+        default_batch_fetch_size: 20
+
+  flyway:
+    enabled: true
+    locations: classpath:db/migration
+    baseline-on-migrate: false
+    validate-on-migrate: true
+    out-of-order: false
+
+  data:
+    redis:
+      host: ${SPRING_REDIS_HOST:localhost}
+      port: ${SPRING_REDIS_PORT:6379}
+      password: ${SPRING_REDIS_PASSWORD:Redis@2026}
+      timeout: 2000ms
+    jpa:
+      repositories:
+        bootstrap-mode: deferred
+
+  mail:
+    host: ${SMTP_HOST:smtp.gmail.com}
+    port: ${SMTP_PORT:587}
+    username: ${SMTP_USER:noreply@arogya.in}
+    password: ${SMTP_PASS:changeme}
+    properties:
+      mail:
+        smtp:
+          auth: true
+          starttls:
+            enable: true
+
+  jackson:
+    default-property-inclusion: non_null
+    serialization:
+      write-dates-as-timestamps: false
+
+
+app:
+  jwt:
+    secret: ${JWT_SECRET:ArogyaHmsSuperSecretKey2026MustBeAtLeast256BitsLongForHS256}
+    expiry-ms: ${JWT_EXPIRY_MS:86400000}
+  minio:
+    endpoint: ${MINIO_ENDPOINT:http://localhost:9000}
+    access-key: ${MINIO_ACCESS_KEY:arogya-minio}
+    secret-key: ${MINIO_SECRET_KEY:Minio@2026!}
+    bucket: ${MINIO_BUCKET:arogya-docs}
+  base-url: ${APP_BASE_URL:http://localhost:3000}
+  email:
+    dev-mode: ${EMAIL_DEV_MODE:true}
+    from: ${SMTP_USER:noreply@arogya.in}
+    from-name: "Arogya HMS"
+
+springdoc:
+  api-docs:
+    path: /v3/api-docs
+  swagger-ui:
+    path: /swagger-ui.html
+    operations-sorter: method
+    tags-sorter: alpha
+    display-request-duration: true
+  info:
+    title: Arogya HMS API
+    version: 1.0.0
+    description: Multi-tenant Hospital Management SaaS API
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health,info,metrics
+  endpoint:
+    health:
+      show-details: when-authorized
+
+logging:
+  level:
+    root: INFO
+    in.arogya: DEBUG
+    org.hibernate.SQL: WARN
+    org.flywaydb: INFO
