@@ -3,23 +3,24 @@
 .env.local
 .env.*.local
 
-# Backend
-backend/target/
-backend/**/target/
+# Server
+server/target/
 *.class
 *.jar
 *.war
 !gradle-wrapper.jar
 .gradle/
 build/
+.apt_generated/
+.apt_generated_tests/
 
-# Frontend
-frontend/.next/
-frontend/out/
-frontend/node_modules/
-frontend/.env.local
-frontend/.env.production.local
-frontend/next-env.d.ts
+# Client
+client/.next/
+client/out/
+client/node_modules/
+client/.env.local
+client/.env.production.local
+client/next-env.d.ts
 
 # IDE
 .idea/

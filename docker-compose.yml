@@ -61,11 +61,11 @@ services:
     networks:
       - arogya-net
 
-  backend:
+  server:
     build:
-      context: ./backend
+      context: ./server
       dockerfile: Dockerfile
-    container_name: arogya-backend
+    container_name: arogya-server
     restart: unless-stopped
     depends_on:
       mysql:
@@ -98,14 +98,14 @@ services:
     networks:
       - arogya-net
 
-  frontend:
+  client:
     build:
-      context: ./frontend
+      context: ./client
       dockerfile: Dockerfile
-    container_name: arogya-frontend
+    container_name: arogya-client
     restart: unless-stopped
     depends_on:
-      - backend
+      - server
     environment:
       NEXT_PUBLIC_API_BASE_URL: ${NEXT_PUBLIC_API_BASE_URL:-http://localhost:8080}
       NEXT_PUBLIC_APP_NAME: Arogya HMS

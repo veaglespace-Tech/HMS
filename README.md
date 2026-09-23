@@ -22,31 +22,29 @@ cp .env.example .env
 # Edit .env — set your MySQL password, etc.
 ```
 
-### 2. Start Backend
+### 2. Start Server (Backend)
 
 ```bash
-cd backend
+cd server
 # Copy .env values to your shell OR export them manually:
 set SPRING_DATASOURCE_PASSWORD=Root   # (Windows)
 export SPRING_DATASOURCE_PASSWORD=Root   # (Mac/Linux)
 
-./mvnw spring-boot:run -pl app -am
-# OR if you have Maven installed:
-mvn spring-boot:run -pl app -am
+mvn spring-boot:run
 ```
 
-Backend starts at **http://localhost:8080**
+Server starts at **http://localhost:8080**
 API Docs: **http://localhost:8080/swagger-ui.html**
 
-### 3. Start Frontend
+### 3. Start Client (Frontend)
 
 ```bash
-cd frontend
+cd client
 npm install
 npm run dev
 ```
 
-Frontend starts at **http://localhost:3000**
+Client starts at **http://localhost:3000**
 
 ---
 
@@ -59,8 +57,8 @@ docker compose up --build
 
 | Service | URL |
 |---|---|
-| Frontend | http://localhost:3000 |
-| Backend API | http://localhost:8080 |
+| Client | http://localhost:3000 |
+| Server API | http://localhost:8080 |
 | Swagger UI | http://localhost:8080/swagger-ui.html |
 | MinIO Console | http://localhost:9001 |
 
@@ -81,16 +79,25 @@ docker compose up --build
 
 ## Architecture Overview
 
-### Backend — Maven Multi-Module (Java 21 / Spring Boot 3.3)
+### Server — Spring Boot 3.3 (Java 21)
 
 ```
-backend/
-├── app/              # Spring Boot entry point
-├── common/           # Shared foundation (tenant, audit, JWT, storage)
-└── tenant-onboarding/ # Hospital self-registration API
+server/
+├── pom.xml
+└── src/
+    ├── main/
+    │   ├── java/in/arogya/
+    │   │   ├── app/                 # Spring Boot entry point
+    │   │   ├── common/              # Shared foundation (tenant isolation, audit hash chaining, JWT, storage)
+    │   │   └── onboarding/          # Hospital self-registration & subscription plans
+    │   └── resources/
+    │       ├── application.yml
+    │       └── db/migration/        # Flyway V1 schema & V2 seed data
+    └── test/
 ```
 
 **Key principles:**
+- Single consolidated `src/` tree with clean package isolation
 - Shared MySQL DB with `hospital_id` discriminator on every tenant table
 - Row-level tenant isolation via `TenantFilter` (JWT → TenantContext → Hibernate @Filter)
 - SUPER_ADMIN bypasses tenant filter with an audited platform scope
@@ -98,12 +105,21 @@ backend/
 - Append-only audit log with SHA-256 hash chaining
 - Optimistic locking (`@Version`) on all hot entities
 
-### Frontend — Next.js 14 App Router + TypeScript
+### Client — Next.js 14 App Router + Redux Toolkit (RTK)
 
 ```
-frontend/src/app/
-├── (public)/     # Public marketing website (no auth required)
-└── (dashboard)/  # Protected app shell (Step 2+)
+client/src/
+├── app/          # Pages & layouts (public marketing & onboarding wizard)
+├── components/   # UI & step components
+├── redux/        # Redux Toolkit store, typed hooks, slices & RTK Query
+│   ├── store.ts
+│   ├── hooks.ts
+│   ├── slices/
+│   │   ├── authSlice.ts
+│   │   ├── tenantSlice.ts
+│   │   └── registrationSlice.ts
+│   └── services/
+│       └── arogyaApi.ts
 ```
 
 ---
@@ -137,12 +153,12 @@ GET    /api/v1/public/hospital-registrations/check-slug?slug=   Check slug avail
 ## Running Tests
 
 ```bash
-# Backend
-cd backend
-./mvnw test
+# Server
+cd server
+mvn test
 
-# Frontend
-cd frontend
+# Client
+cd client
 npm run lint
 npm run typecheck
 ```
