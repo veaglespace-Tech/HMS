@@ -8,7 +8,7 @@ spring:
     name: arogya-hms
 
   datasource:
-    url: ${SPRING_DATASOURCE_URL:jdbc:mysql://localhost:3306/arogya_hms?createDatabaseIfNotExist=true&useSSL=false&allowPublicKeyRetrieval=true&serverTimezone=Asia/Kolkata}
+    url: ${SPRING_DATASOURCE_URL:jdbc:mysql://localhost:3306/hms?createDatabaseIfNotExist=true&useSSL=false&allowPublicKeyRetrieval=true&serverTimezone=Asia/Kolkata}
     username: ${SPRING_DATASOURCE_USERNAME:root}
     password: ${SPRING_DATASOURCE_PASSWORD:Root}
     driver-class-name: com.mysql.cj.jdbc.Driver
