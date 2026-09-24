@@ -1,6 +1,6 @@
 package in.arogya.common.audit;
 
-import in.arogya.common.domain.BaseEntity;
+import in.arogya.common.entity.BaseEntity;
 import jakarta.persistence.*;
 import lombok.*;
 

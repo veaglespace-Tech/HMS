@@ -1,4 +1,6 @@
-package in.arogya.domain;
+package in.arogya.entity;
+
+import in.arogya.common.entity.TenantAwareEntity;
 
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
@@ -14,13 +16,8 @@ import java.time.LocalDateTime;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-public class RadiologyReport {
-
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
-
-    @ManyToOne
+public class RadiologyReport extends TenantAwareEntity {
+@ManyToOne
     @JoinColumn(name = "patient_id", nullable = false)
     private Patient patient;
 

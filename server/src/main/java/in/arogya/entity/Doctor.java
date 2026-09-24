@@ -1,4 +1,4 @@
-package in.arogya.domain;
+package in.arogya.entity;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.Table;

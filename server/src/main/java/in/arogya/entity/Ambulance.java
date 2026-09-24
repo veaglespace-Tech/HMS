@@ -1,4 +1,6 @@
-package in.arogya.domain;
+package in.arogya.entity;
+
+import in.arogya.common.entity.TenantAwareEntity;
 
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
@@ -12,13 +14,8 @@ import lombok.Setter;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-public class Ambulance {
-
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
-
-    @Column(nullable = false, unique = true)
+public class Ambulance extends TenantAwareEntity {
+@Column(nullable = false, unique = true)
     private String vehicleNumber;
 
     private String vehicleType; // e.g., Basic, Advanced Life Support (ALS)

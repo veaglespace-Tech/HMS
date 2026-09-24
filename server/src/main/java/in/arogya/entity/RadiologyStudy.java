@@ -1,4 +1,6 @@
-package in.arogya.domain;
+package in.arogya.entity;
+
+import in.arogya.common.entity.TenantAwareEntity;
 
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
@@ -12,13 +14,8 @@ import lombok.Setter;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-public class RadiologyStudy {
-
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
-
-    @Column(nullable = false, unique = true)
+public class RadiologyStudy extends TenantAwareEntity {
+@Column(nullable = false, unique = true)
     private String name; // e.g., Chest X-Ray, Brain MRI
 
     private String studyType; // e.g., X-Ray, MRI, CT Scan

@@ -1,4 +1,4 @@
-package in.arogya.common.domain;
+package in.arogya.common.entity;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.MappedSuperclass;

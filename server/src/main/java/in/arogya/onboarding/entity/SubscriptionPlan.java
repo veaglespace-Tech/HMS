@@ -1,6 +1,6 @@
-package in.arogya.onboarding.domain;
+package in.arogya.onboarding.entity;
 
-import in.arogya.common.domain.BaseEntity;
+import in.arogya.common.entity.BaseEntity;
 import jakarta.persistence.*;
 import lombok.*;
 

@@ -1,4 +1,6 @@
-package in.arogya.domain;
+package in.arogya.entity;
+
+import in.arogya.common.entity.TenantAwareEntity;
 
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
@@ -14,13 +16,8 @@ import java.time.LocalDateTime;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-public class LabResult {
-
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
-
-    @OneToOne
+public class LabResult extends TenantAwareEntity {
+@OneToOne
     @JoinColumn(name = "order_id", nullable = false)
     private LabOrder labOrder;
 

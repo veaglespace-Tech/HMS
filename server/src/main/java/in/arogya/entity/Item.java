@@ -1,4 +1,6 @@
-package in.arogya.domain;
+package in.arogya.entity;
+
+import in.arogya.common.entity.TenantAwareEntity;
 
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
@@ -12,13 +14,8 @@ import lombok.Setter;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-public class Item {
-
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
-
-    @Column(nullable = false)
+public class Item extends TenantAwareEntity {
+@Column(nullable = false)
     private String name; // e.g., PPE Kit, Syringe
 
     private String category;

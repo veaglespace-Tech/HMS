@@ -1,6 +1,6 @@
 package in.arogya.onboarding.dto;
 
-import in.arogya.onboarding.domain.Hospital;
+import in.arogya.onboarding.entity.Hospital;
 import lombok.Builder;
 
 import java.time.Instant;
