@@ -63,10 +63,12 @@ public class Hospital extends BaseEntity {
     private String logoUrl;
 
     @Column(name = "bed_count")
+    @Builder.Default
     private Integer bedCount = 0;
 
     @Enumerated(EnumType.STRING)
     @Column(name = "status", nullable = false, length = 30)
+    @Builder.Default
     private HospitalStatus status = HospitalStatus.PENDING_APPROVAL;
 
     @Column(name = "plan_id", length = 36)

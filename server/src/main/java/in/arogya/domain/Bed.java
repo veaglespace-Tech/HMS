@@ -1,4 +1,4 @@
-package in.arogya.models;
+package in.arogya.domain;
 
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
@@ -7,25 +7,25 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 @Entity
-@Table(name = "medicines")
+@Table(name = "beds")
 @Getter
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-public class Medicine {
+public class Bed {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     @Column(nullable = false)
-    private String genericName;
+    private String bedNumber;
 
-    private String brandName;
+    @ManyToOne
+    @JoinColumn(name = "room_id", nullable = false)
+    private Room room;
 
-    private String category; // e.g., Tablet, Syrup, Injection
+    private String status; // e.g., Available, Occupied, Maintenance
 
-    private Integer reorderLevel;
-
-    private String manufacturer;
+    private Double dailyCharge;
 }

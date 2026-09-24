@@ -1,4 +1,4 @@
-package in.arogya.models;
+package in.arogya.domain;
 
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
@@ -7,21 +7,25 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 @Entity
-@Table(name = "radiology_studies")
+@Table(name = "ambulances")
 @Getter
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-public class RadiologyStudy {
+public class Ambulance {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     @Column(nullable = false, unique = true)
-    private String name; // e.g., Chest X-Ray, Brain MRI
+    private String vehicleNumber;
 
-    private String studyType; // e.g., X-Ray, MRI, CT Scan
+    private String vehicleType; // e.g., Basic, Advanced Life Support (ALS)
 
-    private Double cost;
+    @ManyToOne
+    @JoinColumn(name = "driver_id")
+    private Employee driver;
+
+    private String status; // e.g., AVAILABLE, ON_TRIP, MAINTENANCE
 }

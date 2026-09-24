@@ -1,4 +1,4 @@
-package in.arogya.models;
+package in.arogya.domain;
 
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
@@ -9,12 +9,12 @@ import lombok.Setter;
 import java.time.LocalDateTime;
 
 @Entity
-@Table(name = "radiology_reports")
+@Table(name = "lab_orders")
 @Getter
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-public class RadiologyReport {
+public class LabOrder {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -25,17 +25,14 @@ public class RadiologyReport {
     private Patient patient;
 
     @ManyToOne
-    @JoinColumn(name = "doctor_id", nullable = false) // Doctor who ordered it
+    @JoinColumn(name = "doctor_id", nullable = false)
     private Doctor doctor;
 
     @ManyToOne
-    @JoinColumn(name = "study_id", nullable = false)
-    private RadiologyStudy study;
+    @JoinColumn(name = "test_id", nullable = false)
+    private LabTest test;
 
-    @Lob
-    private String findings;
+    private LocalDateTime orderDate;
 
-    private String imagePath; // Path/URL to the PACS system or S3 bucket
-
-    private LocalDateTime reportDate;
+    private String status; // e.g., PENDING, SAMPLE_COLLECTED, COMPLETED
 }
