@@ -126,35 +126,14 @@
     100% { transform: translateX(-50%); }
   }
 
-  /* ─── 3D Floating Shapes ────────────────────────────────────────────────── */
-  .shape {
-    @apply absolute pointer-events-none select-none -z-0 opacity-70 dark:opacity-40 transition-transform duration-500 ease-out;
-  }
-  .shape-cross {
-    @apply top-20 right-[12%] w-12 h-12 text-teal/40 dark:text-teal/30;
-    animation: float-slow 7s ease-in-out infinite alternate;
-  }
-  .shape-ring {
-    @apply top-44 left-[6%] w-16 h-16 rounded-full border-4 border-coral/30 dark:border-coral/20;
-    animation: float-mid 6s ease-in-out infinite alternate-reverse;
-  }
-  .shape-pill {
-    @apply bottom-24 right-[8%] w-24 h-8 rounded-full bg-gradient-to-r from-amber/25 to-coral/20 border border-amber/30;
-    animation: float-slow 8s ease-in-out infinite alternate;
-    transform: rotate(-15deg);
-  }
-  .shape-dot {
-    @apply top-32 left-[45%] w-4 h-4 rounded-full bg-teal-bright/40 dark:bg-teal/40 blur-[1px];
-    animation: pulse-soft 3s ease-in-out infinite;
+  /* ─── Hero Showcase ─────────────────────────────────────────────────────── */
+  .hero-showcase-frame {
+    @apply relative rounded-3xl overflow-hidden border border-line dark:border-line-dark shadow-2xl bg-white dark:bg-card;
   }
 
-  @keyframes float-slow {
-    0% { transform: translateY(0px) rotate(0deg); }
-    100% { transform: translateY(-18px) rotate(10deg); }
-  }
-  @keyframes float-mid {
-    0% { transform: translateY(0px) rotate(0deg) scale(1); }
-    100% { transform: translateY(14px) rotate(-12deg) scale(1.08); }
+  /* ─── Section container ─────────────────────────────────────────────────── */
+  .section-container {
+    @apply max-w-7xl mx-auto px-4 sm:px-6 lg:px-8;
   }
 
   /* ─── Cards & 3D Tilt ───────────────────────────────────────────────────── */
@@ -245,9 +224,5 @@
     @apply inline-flex items-center justify-center w-5 h-5 rounded-full bg-teal/15 text-teal dark:bg-teal/25 dark:text-teal-bright text-xs font-bold shrink-0;
   }
 
-  /* ─── Section container ─────────────────────────────────────────────────── */
-  .section-container {
-    @apply max-w-6xl mx-auto px-4 sm:px-6;
-  }
 }
 

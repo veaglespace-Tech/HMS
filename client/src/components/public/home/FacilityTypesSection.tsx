@@ -15,7 +15,7 @@ const facilityTypes = [
 
 export function FacilityTypesSection() {
   return (
-    <section className="py-20 bg-cream/50 dark:bg-ink/50 border-b border-line dark:border-line-dark">
+    <section id="facilities" className="py-20 bg-cream/50 dark:bg-ink/50 border-b border-line dark:border-line-dark">
       <div className="section-container">
         <motion.div
           initial={{ opacity: 0, y: 20 }}

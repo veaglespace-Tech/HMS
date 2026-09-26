@@ -5,7 +5,7 @@ import { TiltCard } from "@/components/shared/TiltCard";
 
 export function AboutStripSection() {
   return (
-    <section className="max-w-6xl mx-auto px-4 sm:px-6 py-16 sm:py-24">
+    <section className="section-container py-16 sm:py-24">
       <div className="grid md:grid-cols-2 gap-10 items-center">
         {/* 3D Tilt Photo Card */}
         <TiltCard maxTilt={6} scale={1.01} className="w-full">
