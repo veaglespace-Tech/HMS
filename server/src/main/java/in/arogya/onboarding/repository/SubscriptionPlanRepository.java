@@ -1,6 +1,6 @@
 package in.arogya.onboarding.repository;
 
-import in.arogya.onboarding.domain.SubscriptionPlan;
+import in.arogya.onboarding.entity.SubscriptionPlan;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.List;

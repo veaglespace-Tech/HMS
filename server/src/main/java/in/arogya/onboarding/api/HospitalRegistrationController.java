@@ -1,7 +1,7 @@
 package in.arogya.onboarding.api;
 
 import in.arogya.common.dto.ApiResponse;
-import in.arogya.onboarding.domain.SubscriptionPlan;
+import in.arogya.onboarding.entity.SubscriptionPlan;
 import in.arogya.onboarding.dto.HospitalRegistrationRequest;
 import in.arogya.onboarding.dto.HospitalRegistrationResponse;
 import in.arogya.onboarding.service.HospitalRegistrationService;

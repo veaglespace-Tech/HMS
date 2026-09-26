@@ -1,6 +1,6 @@
 package in.arogya.onboarding.dto;
 
-import in.arogya.onboarding.domain.Hospital;
+import in.arogya.onboarding.entity.Hospital;
 import jakarta.validation.constraints.*;
 import lombok.Builder;
 
