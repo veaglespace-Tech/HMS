@@ -4,6 +4,7 @@ import authReducer from "./slices/authSlice";
 import tenantReducer from "./slices/tenantSlice";
 import registrationReducer from "./slices/registrationSlice";
 import { arogyaApi } from "./services/arogyaApi";
+import { apiSlice } from "./apiSlice";
 
 export const store = configureStore({
   reducer: {
@@ -11,6 +12,7 @@ export const store = configureStore({
     tenant: tenantReducer,
     registration: registrationReducer,
     [arogyaApi.reducerPath]: arogyaApi.reducer,
+    [apiSlice.reducerPath]: apiSlice.reducer,
   },
   middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware({
@@ -18,7 +20,7 @@ export const store = configureStore({
         // Ignore certain non-serializable values if any
         ignoredActions: [],
       },
-    }).concat(arogyaApi.middleware),
+    }).concat(arogyaApi.middleware, apiSlice.middleware),
   devTools: process.env.NODE_ENV !== "production",
 });
 
