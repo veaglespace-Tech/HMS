@@ -1,26 +1,30 @@
 import type { Metadata } from "next";
 import { HeroSection } from "@/components/public/home/HeroSection";
+import { AboutStripSection } from "@/components/public/home/AboutStripSection";
+import { ThemePaletteSection } from "@/components/public/home/ThemePaletteSection";
+import { ButtonsShowcaseSection } from "@/components/public/home/ButtonsShowcaseSection";
+import { CardsTiltSection } from "@/components/public/home/CardsTiltSection";
+import { TemplatesSection } from "@/components/public/home/TemplatesSection";
 import { FacilityTypesSection } from "@/components/public/home/FacilityTypesSection";
-import { FeaturesGridSection } from "@/components/public/home/FeaturesGridSection";
-import { PatientJourneySection } from "@/components/public/home/PatientJourneySection";
-import { ModulesShowcaseSection } from "@/components/public/home/ModulesShowcaseSection";
 import { PricingTeaserSection } from "@/components/public/home/PricingTeaserSection";
 import { CtaSection } from "@/components/public/home/CtaSection";
 
 export const metadata: Metadata = {
-  title: "Arogya HMS — Complete Hospital Management System for Any Healthcare Facility",
+  title: "Arogya HMS — Calm Clinic UI Kit & Healthcare Management Platform",
   description:
-    "Manage your entire hospital digitally. From patient registration to discharge, billing to lab reports — all in one place. For clinics, nursing homes, multispecialty hospitals, and more.",
+    "Care that feels human, managed like clockwork. Complete hospital management platform for clinics, nursing homes, and multispecialty hospitals across India.",
 };
 
 export default function HomePage() {
   return (
     <>
       <HeroSection />
+      <AboutStripSection />
+      <ThemePaletteSection />
+      <ButtonsShowcaseSection />
+      <CardsTiltSection />
+      <TemplatesSection />
       <FacilityTypesSection />
-      <FeaturesGridSection />
-      <PatientJourneySection />
-      <ModulesShowcaseSection />
       <PricingTeaserSection />
       <CtaSection />
     </>

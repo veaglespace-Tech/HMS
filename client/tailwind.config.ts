@@ -39,19 +39,37 @@ const config: Config = {
           900: "#502200",
           foreground: "#FFFFFF",
         },
+        // ─── Calm Clinic Design Tokens ────────────────────────────────────
+        cream: {
+          DEFAULT: "#FAF6EF",
+          soft: "#F3EDE2",
+        },
         ink: {
-          DEFAULT: "#0B1A2A",
+          DEFAULT: "#14212B",
+          soft: "#475569",
           50:  "#E8ECF0",
-          500: "#0B1A2A",
+          500: "#14212B",
         },
-        canvas: {
-          DEFAULT: "#F7F9FB",
+        teal: {
+          DEFAULT: "#0E7C7B",
+          bright: "#12A5A3",
+          light: "#E8F5F5",
+          dark: "#085756",
         },
-        critical: { DEFAULT: "#DC2626", foreground: "#FFFFFF" },
-        warning:  { DEFAULT: "#EA580C", foreground: "#FFFFFF" },
-        success:  { DEFAULT: "#16A34A", foreground: "#FFFFFF" },
-        info:     { DEFAULT: "#2563EB", foreground: "#FFFFFF" },
-        neutral:  { DEFAULT: "#475569" },
+        coral: {
+          DEFAULT: "#FF6B5B",
+          light: "#FFEAE7",
+          dark: "#E04838",
+        },
+        amber: {
+          DEFAULT: "#FFC24B",
+          light: "#FFF6E4",
+          dark: "#D9981E",
+        },
+        line: {
+          DEFAULT: "#E6E0D5",
+          dark: "rgba(255, 255, 255, 0.08)",
+        },
 
         // ─── shadcn/ui semantic tokens ────────────────────────────────────
         background:   "hsl(var(--background))",
@@ -77,7 +95,8 @@ const config: Config = {
         },
       },
       fontFamily: {
-        sans: ["Inter", "ui-sans-serif", "system-ui", "sans-serif"],
+        sans: ["var(--font-inter)", "Inter", "ui-sans-serif", "system-ui", "sans-serif"],
+        display: ["var(--font-fraunces)", "Fraunces", "Georgia", "serif"],
       },
       spacing: {
         // 8px grid

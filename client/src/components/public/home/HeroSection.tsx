@@ -2,118 +2,146 @@
 
 import { motion } from "framer-motion";
 import Link from "next/link";
-import { ArrowRight, CheckCircle, Sparkles } from "lucide-react";
+import { ArrowRight, Sparkles, Building2, Users, CheckCircle2 } from "lucide-react";
+import { MagneticButton } from "@/components/shared/MagneticButton";
 
-const highlights = [
-  "Zero paperwork from day one",
-  "Works for any hospital size",
-  "DPDPA compliant & secure",
-  "24/7 support included",
+const stats = [
+  { value: "120+", label: "Hospitals & Clinics" },
+  { value: "48K+", label: "Patients / mo" },
+  { value: "99.9%", label: "Platform Uptime" },
+];
+
+const marqueeItems = [
+  "OPD / IPD Management",
+  "NABH & ABDM Ready",
+  "Live ICU & Bed Tracking",
+  "Multi-Specialty Billing",
+  "Pharmacy & Inventory",
+  "Lab & RIS/PACS Reports",
+  "E-Prescriptions",
+  "26 RBAC Staff Roles",
 ];
 
 export function HeroSection() {
   return (
-    <section className="relative overflow-hidden bg-ink min-h-[92vh] flex items-center">
-      {/* Background gradient mesh */}
-      <div className="absolute inset-0">
-        <div className="absolute top-0 left-1/4 w-96 h-96 bg-primary/20 rounded-full blur-3xl" />
-        <div className="absolute bottom-0 right-1/4 w-96 h-96 bg-accent/10 rounded-full blur-3xl" />
-        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-primary/5 rounded-full blur-3xl" />
+    <section id="landing" className="relative overflow-hidden pt-6 sm:pt-10">
+      {/* Background hero image with overlay */}
+      <div className="hero-bg" aria-hidden="true">
+        <img
+          src="/assets/hero-banner.jpg"
+          alt="Healthcare staff and patient"
+          className="hero-img"
+        />
+        <div className="hero-overlay" />
       </div>
 
-      {/* Grid pattern overlay */}
-      <div
-        className="absolute inset-0 opacity-[0.03]"
-        style={{
-          backgroundImage: "linear-gradient(rgba(255,255,255,0.1) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.1) 1px, transparent 1px)",
-          backgroundSize: "64px 64px",
-        }}
-      />
+      {/* Floating 3D Shapes */}
+      <div className="shape shape-cross" data-depth="0.6" aria-hidden="true">
+        <svg viewBox="0 0 60 60" fill="currentColor" className="w-full h-full">
+          <rect x="22" y="6" width="16" height="48" rx="6" />
+          <rect x="6" y="22" width="48" height="16" rx="6" />
+        </svg>
+      </div>
+      <div className="shape shape-ring" data-depth="1.1" aria-hidden="true" />
+      <div className="shape shape-pill" data-depth="0.9" aria-hidden="true" />
+      <div className="shape shape-dot" data-depth="1.4" aria-hidden="true" />
 
-      <div className="relative section-container py-24">
-        <div className="max-w-4xl mx-auto text-center">
+      {/* Hero content container */}
+      <div className="relative max-w-6xl mx-auto px-4 sm:px-6 pt-12 pb-20 sm:pt-20 sm:pb-28">
+        <div className="max-w-2xl">
           {/* Badge */}
           <motion.div
-            initial={{ opacity: 0, y: 16 }}
+            initial={{ opacity: 0, y: 12 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.5 }}
-            className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-primary/20 border border-primary/30 text-primary-300 text-sm font-medium mb-8"
+            transition={{ duration: 0.4 }}
           >
-            <Sparkles className="w-4 h-4" />
-            Complete Hospital Management SaaS · Made in India
+            <span className="badge badge-teal">
+              ● Trusted by 120+ Healthcare Facilities
+            </span>
           </motion.div>
 
-          {/* Headline */}
+          {/* Heading */}
           <motion.h1
-            initial={{ opacity: 0, y: 24 }}
+            initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, delay: 0.1 }}
-            className="text-5xl md:text-6xl lg:text-7xl font-bold text-white leading-tight mb-6"
+            transition={{ duration: 0.5, delay: 0.1 }}
+            className="font-display text-4xl sm:text-5xl md:text-6xl font-semibold leading-[1.08] tracking-tight mt-5 text-foreground"
           >
-            Run Your Hospital{" "}
-            <span className="text-primary-300">Digitally</span>
-            <br />
-            Without the Paperwork
+            Care that feels{" "}
+            <em className="text-teal dark:text-teal-bright not-italic font-display italic">
+              human
+            </em>
+            ,<br className="hidden sm:block" />
+            managed like{" "}
+            <span className="text-coral">clockwork</span>.
           </motion.h1>
 
-          {/* Subheadline */}
+          {/* Description */}
           <motion.p
-            initial={{ opacity: 0, y: 24 }}
+            initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, delay: 0.2 }}
-            className="text-xl text-white/60 max-w-2xl mx-auto mb-10 leading-relaxed"
+            transition={{ duration: 0.5, delay: 0.2 }}
+            className="mt-5 text-base sm:text-lg text-ink-soft dark:text-cream-soft leading-relaxed"
           >
-            From patient registration to discharge, lab reports to billing — manage
-            your entire healthcare facility in one place. Works for any facility:
-            clinic, nursing home, multispecialty hospital, or diagnostic centre.
+            Arogya HMS brings OPD, IPD, NABH compliance, billing, ICU beds and
+            lab reports into one calm, beautiful dashboard — so your staff spends
+            time with patients, not paperwork.
           </motion.p>
-
-          {/* Highlights */}
-          <motion.div
-            initial={{ opacity: 0, y: 24 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, delay: 0.3 }}
-            className="flex flex-wrap justify-center gap-4 mb-12"
-          >
-            {highlights.map((item) => (
-              <div key={item} className="flex items-center gap-2 text-sm text-white/70">
-                <CheckCircle className="w-4 h-4 text-primary-300 flex-shrink-0" />
-                {item}
-              </div>
-            ))}
-          </motion.div>
 
           {/* CTAs */}
           <motion.div
-            initial={{ opacity: 0, y: 24 }}
+            initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, delay: 0.4 }}
-            className="flex flex-col sm:flex-row gap-4 justify-center"
+            transition={{ duration: 0.5, delay: 0.3 }}
+            className="mt-8 flex flex-wrap items-center gap-3.5"
           >
-            <Link
-              href="/register-hospital"
-              className="group inline-flex items-center justify-center gap-2 px-8 py-4 rounded-xl bg-primary text-white font-semibold text-base hover:bg-primary-600 transition-all duration-200 shadow-medium hover:shadow-glow"
-            >
-              Register Your Hospital Free
-              <ArrowRight className="w-5 h-5 transition-transform group-hover:translate-x-1" />
-            </Link>
-            <Link
-              href="/modules"
-              className="inline-flex items-center justify-center gap-2 px-8 py-4 rounded-xl border border-white/20 text-white font-semibold text-base hover:bg-white/5 transition-all duration-200"
-            >
-              Explore 26 Modules
-            </Link>
+            <MagneticButton strength={14}>
+              <Link
+                href="/register-hospital"
+                className="btn btn-primary btn-lg"
+              >
+                Register Your Hospital
+                <ArrowRight className="w-4 h-4 ml-1 transition-transform group-hover:translate-x-1" />
+              </Link>
+            </MagneticButton>
+
+            <MagneticButton strength={12}>
+              <a href="#cards" className="btn btn-outline btn-lg">
+                Explore UI Kit & Showcase
+              </a>
+            </MagneticButton>
           </motion.div>
 
-          {/* Social proof */}
-          <motion.p
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ duration: 0.6, delay: 0.6 }}
-            className="mt-10 text-white/30 text-sm"
+          {/* Live Statistics */}
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.5, delay: 0.4 }}
+            className="mt-12 grid grid-cols-3 gap-6 max-w-md pt-6 border-t border-line dark:border-line-dark"
           >
-            No credit card required · 30-day free trial · Cancel anytime
-          </motion.p>
+            {stats.map((st) => (
+              <div key={st.label} className="flex flex-col">
+                <span className="font-display text-2xl sm:text-3xl font-semibold text-teal dark:text-teal-bright">
+                  {st.value}
+                </span>
+                <span className="text-xs text-ink-soft dark:text-cream-soft mt-0.5">
+                  {st.label}
+                </span>
+              </div>
+            ))}
+          </motion.div>
+        </div>
+      </div>
+
+      {/* Continuous Marquee Strip */}
+      <div className="marquee border-y border-line dark:border-line-dark bg-white/60 dark:bg-white/5 backdrop-blur-sm">
+        <div className="marquee-track">
+          {marqueeItems.concat(marqueeItems).map((item, idx) => (
+            <span key={idx} className="inline-flex items-center">
+              <span>{item}</span>
+              <i>✦</i>
+            </span>
+          ))}
         </div>
       </div>
     </section>

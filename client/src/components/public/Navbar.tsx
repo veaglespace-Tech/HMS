@@ -10,7 +10,7 @@ import { cn } from "@/lib/utils";
 
 const navLinks = [
   { label: "Features", href: "/features" },
-  { label: "Modules", href: "/modules" },
+  { label: "UI Showcase", href: "/#cards" },
   { label: "Pricing", href: "/pricing" },
   { label: "About", href: "/about" },
 ];
@@ -34,75 +34,91 @@ export function Navbar() {
       className={cn(
         "sticky top-0 z-50 w-full transition-all duration-300",
         scrolled
-          ? "bg-background/80 backdrop-blur-xl border-b border-border shadow-soft"
-          : "bg-transparent"
+          ? "bg-cream/80 dark:bg-ink/80 backdrop-blur-md border-b border-line dark:border-line-dark shadow-soft"
+          : "bg-transparent border-b border-transparent"
       )}
     >
-      <nav className="section-container">
+      <div className="section-container">
         <div className="flex items-center justify-between h-16">
           {/* Logo */}
-          <Link href="/" className="flex items-center gap-2 group">
-            <div className="w-8 h-8 rounded-lg bg-primary flex items-center justify-center transition-transform group-hover:scale-110">
-              <Activity className="w-4 h-4 text-white" />
-            </div>
-            <span className="font-bold text-lg text-foreground">
-              Arogya <span className="text-primary">HMS</span>
+          <Link href="/" className="flex items-center gap-2.5 group">
+            <span className="logo-mark">
+              <svg viewBox="0 0 24 24" fill="none" className="w-5 h-5">
+                <path
+                  d="M12 21s-7.5-4.6-9.5-9.2C1 8.2 3.4 5 6.6 5c2 0 3.6 1.1 4.4 2.7L12 9l1-1.3C13.8 6.1 15.4 5 17.4 5 20.6 5 23 8.2 21.5 11.8 19.5 16.4 12 21 12 21Z"
+                  fill="currentColor"
+                />
+                <path
+                  d="M7 12h3l1.5-3 2 5L15 12h2"
+                  stroke="#fff"
+                  strokeWidth="1.6"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                />
+              </svg>
+            </span>
+            <span className="font-display text-lg font-semibold tracking-tight text-foreground">
+              Arogya <span className="text-teal">HMS</span>
             </span>
           </Link>
 
           {/* Desktop nav */}
-          <div className="hidden md:flex items-center gap-1">
+          <nav className="hidden md:flex items-center gap-7 text-[13px] font-medium text-ink-soft dark:text-cream-soft">
             {navLinks.map((link) => (
               <Link
                 key={link.href}
                 href={link.href}
                 className={cn(
-                  "px-4 py-2 rounded-lg text-sm font-medium transition-colors",
+                  "transition-colors hover:text-teal dark:hover:text-teal-bright",
                   pathname === link.href
-                    ? "bg-primary/10 text-primary"
-                    : "text-muted-foreground hover:text-foreground hover:bg-muted"
+                    ? "text-teal dark:text-teal-bright font-semibold"
+                    : "text-foreground/80 dark:text-foreground/75"
                 )}
               >
                 {link.label}
               </Link>
             ))}
-          </div>
+          </nav>
 
           {/* Actions */}
-          <div className="hidden md:flex items-center gap-3">
+          <div className="flex items-center gap-2.5">
             {mounted && (
               <button
                 onClick={() => setTheme(theme === "dark" ? "light" : "dark")}
-                className="p-2 rounded-lg text-muted-foreground hover:text-foreground hover:bg-muted transition-colors"
+                className="btn btn-ghost btn-icon"
                 aria-label="Toggle theme"
               >
-                {theme === "dark" ? <Sun className="w-4 h-4" /> : <Moon className="w-4 h-4" />}
+                {theme === "dark" ? (
+                  <Sun className="w-4 h-4 text-amber" />
+                ) : (
+                  <Moon className="w-4 h-4 text-ink-soft" />
+                )}
               </button>
             )}
             <Link
               href="/login"
-              className="px-4 py-2 text-sm font-medium text-muted-foreground hover:text-foreground transition-colors"
+              className="hidden sm:inline-flex px-3.5 py-1.5 text-xs font-semibold text-foreground/80 hover:text-foreground transition-colors"
             >
-              Login
+              Staff Login
             </Link>
             <Link
               href="/register-hospital"
-              className="px-5 py-2 rounded-xl bg-primary text-white text-sm font-semibold hover:bg-primary-600 transition-all duration-200 shadow-soft hover:shadow-glow active:scale-95"
+              className="btn btn-primary btn-sm"
             >
               Register Hospital
             </Link>
-          </div>
 
-          {/* Mobile menu button */}
-          <button
-            className="md:hidden p-2 rounded-lg text-muted-foreground hover:text-foreground hover:bg-muted transition-colors"
-            onClick={() => setIsOpen(!isOpen)}
-            aria-label="Toggle menu"
-          >
-            {isOpen ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
-          </button>
+            {/* Mobile menu button */}
+            <button
+              className="md:hidden btn btn-ghost btn-icon"
+              onClick={() => setIsOpen(!isOpen)}
+              aria-label="Toggle menu"
+            >
+              {isOpen ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
+            </button>
+          </div>
         </div>
-      </nav>
+      </div>
 
       {/* Mobile menu */}
       <AnimatePresence>
@@ -112,31 +128,37 @@ export function Navbar() {
             animate={{ opacity: 1, height: "auto" }}
             exit={{ opacity: 0, height: 0 }}
             transition={{ duration: 0.2 }}
-            className="md:hidden bg-background border-b border-border"
+            className="md:hidden bg-cream dark:bg-ink border-b border-line dark:border-line-dark shadow-medium"
           >
-            <div className="section-container py-4 flex flex-col gap-1">
+            <div className="section-container py-4 flex flex-col gap-1.5">
               {navLinks.map((link) => (
                 <Link
                   key={link.href}
                   href={link.href}
                   onClick={() => setIsOpen(false)}
                   className={cn(
-                    "px-4 py-3 rounded-lg text-sm font-medium transition-colors",
+                    "px-4 py-2.5 rounded-xl text-sm font-medium transition-colors",
                     pathname === link.href
-                      ? "bg-primary/10 text-primary"
-                      : "text-muted-foreground hover:text-foreground hover:bg-muted"
+                      ? "bg-teal/10 text-teal dark:text-teal-bright font-semibold"
+                      : "text-foreground/80 hover:bg-muted"
                   )}
                 >
                   {link.label}
                 </Link>
               ))}
-              <div className="border-t border-border mt-2 pt-2 flex flex-col gap-2">
-                <Link href="/login" onClick={() => setIsOpen(false)}
-                  className="px-4 py-3 rounded-lg text-sm font-medium text-muted-foreground hover:bg-muted">
-                  Login
+              <div className="border-t border-line dark:border-line-dark mt-2 pt-3 flex flex-col gap-2">
+                <Link
+                  href="/login"
+                  onClick={() => setIsOpen(false)}
+                  className="btn btn-outline w-full justify-center"
+                >
+                  Staff Login
                 </Link>
-                <Link href="/register-hospital" onClick={() => setIsOpen(false)}
-                  className="px-4 py-3 rounded-xl bg-primary text-white text-sm font-semibold text-center">
+                <Link
+                  href="/register-hospital"
+                  onClick={() => setIsOpen(false)}
+                  className="btn btn-primary w-full justify-center"
+                >
                   Register Hospital
                 </Link>
               </div>
