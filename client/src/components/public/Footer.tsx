@@ -4,7 +4,7 @@ import { Mail, Phone, MapPin, Heart } from "lucide-react";
 const footerLinks = {
   Platform: [
     { label: "Features", href: "/features" },
-    { label: "Clinical Modules", href: "/#modules" },
+    { label: "Hospital Capabilities", href: "/#capabilities" },
     { label: "ABDM & Compliance", href: "/#compliance" },
     { label: "Facility Solutions", href: "/#facilities" },
     { label: "Subscription Plans", href: "/pricing" },

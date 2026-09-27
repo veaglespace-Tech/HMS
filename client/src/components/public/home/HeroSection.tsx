@@ -10,8 +10,7 @@ import {
   Activity,
   Bed,
   CheckCircle2,
-  Sparkles,
-  FileCheck2,
+  Lock,
 } from "lucide-react";
 import { MagneticButton } from "@/components/shared/MagneticButton";
 
@@ -23,15 +22,15 @@ const stats = [
 ];
 
 const marqueeItems = [
-  "ABDM Milestone M1, M2, M3 Ready",
-  "NABH Digital Quality Compliance",
-  "Outpatient (OPD) & Token Queue",
-  "Inpatient (IPD) & Bed Tracking",
+  "Ayushman Bharat ABDM M1, M2, M3 Ready",
+  "NABH Digital Quality Architecture",
+  "Outpatient (OPD) & Token Queue Screens",
+  "Inpatient (IPD) & Live Bed Telemetry",
   "Electronic Health Records (EHR & E-Rx)",
-  "Centralized Pharmacy & Formulary POS",
-  "Diagnostic Laboratory & LIS Interfacing",
+  "Centralized Pharmacy POS & Inventory",
+  "Diagnostic Pathology LIS Interfacing",
   "Radiology & DICOM PACS Integration",
-  "GST & Cashless TPA Insurance Billing",
+  "GST & Cashless Insurance TPA Invoicing",
   "24/7 Ambulance Fleet Dispatch",
 ];
 
@@ -42,7 +41,7 @@ export function HeroSection() {
         <div className="grid lg:grid-cols-12 gap-10 lg:gap-12 items-center">
           {/* Left Column: Value Proposition & CTAs */}
           <div className="lg:col-span-7 flex flex-col items-start text-left">
-            {/* National Healthcare Standards Badge */}
+            {/* National Healthcare Standards Accreditation Badge */}
             <motion.div
               initial={{ opacity: 0, y: 10 }}
               animate={{ opacity: 1, y: 0 }}
@@ -98,10 +97,10 @@ export function HeroSection() {
 
               <MagneticButton strength={10}>
                 <a
-                  href="#modules"
+                  href="#capabilities"
                   className="btn btn-outline btn-lg"
                 >
-                  Explore Clinical Modules
+                  Explore Capabilities
                 </a>
               </MagneticButton>
 
@@ -135,27 +134,28 @@ export function HeroSection() {
 
           {/* Right Column: Crystal Clear Hero Banner Visual with Live Clinical Overlays */}
           <motion.div
-            initial={{ opacity: 0, scale: 0.96 }}
+            initial={{ opacity: 0, scale: 0.97 }}
             animate={{ opacity: 1, scale: 1 }}
             transition={{ duration: 0.6, delay: 0.2 }}
             className="lg:col-span-5 relative"
           >
-            {/* Crisp Framed Showcase Card */}
+            {/* Crisp Framed Showcase Card - Full 100% Opacity */}
             <div className="relative rounded-3xl overflow-hidden border border-line dark:border-line-dark bg-white dark:bg-card shadow-2xl">
-              {/* High-Definition Hero Banner Image */}
+              {/* High-Definition Hero Banner Image: fully visible, sharp, no blur, no faintness */}
               <div className="relative aspect-[4/3] w-full overflow-hidden bg-muted">
                 <img
                   src="/assets/hero-banner.jpg"
                   alt="Doctor with patient in modern hospital corridor"
                   className="w-full h-full object-cover object-center transition-transform duration-700 hover:scale-105"
+                  style={{ opacity: 1 }}
                 />
-                <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-black/10 to-transparent" />
+                <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/15 to-transparent pointer-events-none" />
                 <div className="absolute bottom-4 left-4 right-4 text-white">
                   <p className="text-xs font-semibold tracking-wide uppercase opacity-90">
                     City Care Multispecialty Facility
                   </p>
                   <p className="font-display text-base sm:text-lg font-medium">
-                    Integrated Clinical Ward & Patient Care
+                    Integrated Clinical Ward &amp; Patient Care
                   </p>
                 </div>
               </div>
@@ -181,7 +181,7 @@ export function HeroSection() {
                       <Bed className="w-4 h-4" />
                     </span>
                     <div>
-                      <p className="text-xs font-semibold text-foreground">Ward & ICU Capacity</p>
+                      <p className="text-xs font-semibold text-foreground">Ward &amp; ICU Capacity</p>
                       <p className="text-[11px] text-ink-soft dark:text-cream-soft">78% Occupied · 14 Beds Available</p>
                     </div>
                   </div>
@@ -203,7 +203,7 @@ export function HeroSection() {
         </div>
       </div>
 
-      {/* Endless Continuous Clinical Marquee */}
+      {/* Endless Continuous Clinical Marquee Strip */}
       <div className="marquee border-y border-line dark:border-line-dark bg-white/70 dark:bg-white/5 backdrop-blur-sm mt-12 sm:mt-16">
         <div className="marquee-track">
           {marqueeItems.concat(marqueeItems).map((item, idx) => (

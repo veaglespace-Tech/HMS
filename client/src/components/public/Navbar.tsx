@@ -9,13 +9,6 @@ import {
   X,
   Moon,
   Sun,
-  ShieldCheck,
-  Building2,
-  Layers,
-  Sparkles,
-  Phone,
-  Info,
-  DollarSign,
   ArrowRight,
 } from "lucide-react";
 import { useTheme } from "next-themes";
@@ -23,8 +16,8 @@ import { cn } from "@/lib/utils";
 
 const navLinks = [
   { label: "Features", href: "/features" },
-  { label: "Modules", href: "/#modules" },
-  { label: "Facilities", href: "/#facilities" },
+  { label: "Capabilities", href: "/#capabilities" },
+  { label: "Solutions", href: "/#facilities" },
   { label: "Compliance", href: "/#compliance" },
   { label: "Pricing", href: "/pricing" },
   { label: "About", href: "/about" },
@@ -53,13 +46,13 @@ export function Navbar() {
       className={cn(
         "sticky top-0 z-50 w-full transition-all duration-300",
         scrolled
-          ? "bg-cream/90 dark:bg-ink/90 backdrop-blur-md border-b border-line dark:border-line-dark shadow-soft"
-          : "bg-cream/60 dark:bg-ink/60 backdrop-blur-xs border-b border-line/40 dark:border-line-dark/40"
+          ? "bg-cream/95 dark:bg-ink/95 backdrop-blur-md border-b border-line dark:border-line-dark shadow-soft"
+          : "bg-cream/80 dark:bg-ink/80 backdrop-blur-xs border-b border-line/50 dark:border-line-dark/50"
       )}
     >
       <div className="section-container">
-        <div className="flex items-center justify-between h-16 sm:h-18">
-          {/* Logo */}
+        <div className="flex items-center justify-between h-16 sm:h-18 gap-4">
+          {/* Brand Logo */}
           <Link href="/" className="flex items-center gap-2.5 shrink-0 group">
             <span className="logo-mark">
               <svg viewBox="0 0 24 24" fill="none" className="w-5 h-5">
@@ -80,20 +73,20 @@ export function Navbar() {
               <span className="font-display text-lg font-semibold tracking-tight text-foreground leading-tight">
                 Arogya <span className="text-teal dark:text-teal-bright">HMS</span>
               </span>
-              <span className="text-[10px] uppercase font-bold tracking-widest text-ink-soft dark:text-cream-soft hidden sm:block">
-                Healthcare Operating System
+              <span className="text-[9px] uppercase font-bold tracking-widest text-ink-soft dark:text-cream-soft hidden sm:block">
+                Hospital OS
               </span>
             </div>
           </Link>
 
-          {/* Desktop Nav Links */}
-          <nav className="hidden lg:flex items-center gap-5 xl:gap-7 text-[13px] font-medium text-ink-soft dark:text-cream-soft">
+          {/* All Desktop Navigation Tabs (Visible on screens >= 900px) */}
+          <nav className="hidden md:flex items-center gap-3.5 lg:gap-5 xl:gap-7 text-xs lg:text-[13px] font-medium text-ink-soft dark:text-cream-soft">
             {navLinks.map((link) => (
               <Link
                 key={link.label}
                 href={link.href}
                 className={cn(
-                  "transition-colors hover:text-teal dark:hover:text-teal-bright py-1",
+                  "transition-colors hover:text-teal dark:hover:text-teal-bright py-1 whitespace-nowrap",
                   pathname === link.href
                     ? "text-teal dark:text-teal-bright font-semibold border-b-2 border-teal"
                     : "text-foreground/80 dark:text-foreground/80"
@@ -104,8 +97,8 @@ export function Navbar() {
             ))}
           </nav>
 
-          {/* Actions */}
-          <div className="flex items-center gap-2 sm:gap-3">
+          {/* Right Action Buttons */}
+          <div className="flex items-center gap-2 sm:gap-2.5 shrink-0">
             {mounted && (
               <button
                 onClick={() => setTheme(theme === "dark" ? "light" : "dark")}
@@ -134,9 +127,9 @@ export function Navbar() {
               Register Hospital
             </Link>
 
-            {/* Mobile menu button */}
+            {/* Mobile menu toggle */}
             <button
-              className="lg:hidden btn btn-ghost btn-icon w-9 h-9"
+              className="md:hidden btn btn-ghost btn-icon w-9 h-9"
               onClick={() => setIsOpen(!isOpen)}
               aria-label="Toggle navigation menu"
             >
@@ -146,7 +139,7 @@ export function Navbar() {
         </div>
       </div>
 
-      {/* Mobile drawer */}
+      {/* Mobile Menu Drawer */}
       <AnimatePresence>
         {isOpen && (
           <motion.div
@@ -154,7 +147,7 @@ export function Navbar() {
             animate={{ opacity: 1, height: "auto" }}
             exit={{ opacity: 0, height: 0 }}
             transition={{ duration: 0.2 }}
-            className="lg:hidden bg-cream dark:bg-ink border-b border-line dark:border-line-dark shadow-medium"
+            className="md:hidden bg-cream dark:bg-ink border-b border-line dark:border-line-dark shadow-medium"
           >
             <div className="section-container py-5 flex flex-col gap-1.5">
               {navLinks.map((link) => (
