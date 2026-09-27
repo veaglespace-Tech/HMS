@@ -1,4 +1,4 @@
-package in.arogya.onboarding.test;
+package in.arogya.test;
 
 import com.tngtech.archunit.core.domain.JavaClasses;
 import com.tngtech.archunit.core.importer.ClassFileImporter;
@@ -21,7 +21,7 @@ class ModuleIsolationTest {
     @Test
     void onboardingModuleShouldNotImportCommonInternalPackages() {
         ArchRule rule = noClasses()
-                .that().resideInAPackage("in.arogya.onboarding..")
+                .that().resideInAPackage("in.arogya..")
                 .should().dependOnClassesThat()
                 .resideInAnyPackage(
                     "in.arogya.common.audit..",   // allowed only via AuditService (is api)
@@ -36,7 +36,7 @@ class ModuleIsolationTest {
     @Test
     void noModuleShouldAccessOtherModuleRepositoriesDirectly() {
         ArchRule rule = noClasses()
-                .that().resideInAPackage("in.arogya.onboarding..")
+                .that().resideInAPackage("in.arogya..")
                 .should().dependOnClassesThat()
                 .haveSimpleNameEndingWith("Repository")
                 .andShould().dependOnClassesThat()

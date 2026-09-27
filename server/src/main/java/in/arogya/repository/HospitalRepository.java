@@ -1,6 +1,6 @@
-package in.arogya.onboarding.repository;
+package in.arogya.repository;
 
-import in.arogya.onboarding.entity.Hospital;
+import in.arogya.entity.Hospital;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 

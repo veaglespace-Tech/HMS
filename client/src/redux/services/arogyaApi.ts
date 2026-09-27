@@ -133,6 +133,14 @@ export const arogyaApi = createApi({
       }),
       invalidatesTags: ["Registration"],
     }),
+
+    login: builder.mutation<any, any>({
+      query: (credentials) => ({
+        url: "/api/v1/auth/login",
+        method: "POST",
+        body: credentials,
+      }),
+    }),
   }),
 });
 
@@ -142,4 +150,5 @@ export const {
   useRegisterHospitalMutation,
   useSendVerificationEmailMutation,
   useVerifyOtpMutation,
+  useLoginMutation,
 } = arogyaApi;

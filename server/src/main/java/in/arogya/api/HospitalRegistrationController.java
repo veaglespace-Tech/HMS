@@ -1,10 +1,10 @@
-package in.arogya.onboarding.api;
+package in.arogya.api;
 
 import in.arogya.common.dto.ApiResponse;
-import in.arogya.onboarding.entity.SubscriptionPlan;
-import in.arogya.onboarding.dto.HospitalRegistrationRequest;
-import in.arogya.onboarding.dto.HospitalRegistrationResponse;
-import in.arogya.onboarding.service.HospitalRegistrationService;
+import in.arogya.entity.SubscriptionPlan;
+import in.arogya.dto.HospitalRegistrationRequest;
+import in.arogya.dto.HospitalRegistrationResponse;
+import in.arogya.service.HospitalRegistrationService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.servlet.http.HttpServletRequest;

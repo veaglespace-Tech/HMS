@@ -1,6 +1,6 @@
-package in.arogya.onboarding.domain;
+package in.arogya.entity;
 
-import in.arogya.common.domain.BaseEntity;
+import in.arogya.common.entity.BaseEntity;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -37,8 +37,10 @@ public class SubscriptionPlan extends BaseEntity {
     private java.math.BigDecimal annualPrice;
 
     @Column(name = "is_active", nullable = false)
+    @Builder.Default
     private boolean active = true;
 
     @Column(name = "sort_order")
+    @Builder.Default
     private Integer sortOrder = 0;
 }

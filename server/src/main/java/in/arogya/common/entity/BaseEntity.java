@@ -16,6 +16,7 @@ import java.util.UUID;
  * Base entity for all non-tenant entities (e.g. platform-level records).
  * Provides: UUID PK, audit timestamps/users, optimistic locking, soft delete.
  */
+
 @Getter
 @Setter
 @MappedSuperclass

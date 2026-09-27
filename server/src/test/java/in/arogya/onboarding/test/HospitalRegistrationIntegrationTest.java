@@ -1,8 +1,8 @@
-package in.arogya.onboarding.test;
+package in.arogya.test;
 
-import in.arogya.onboarding.domain.Hospital;
-import in.arogya.onboarding.dto.HospitalRegistrationRequest;
-import in.arogya.onboarding.repository.HospitalRepository;
+import in.arogya.entity.Hospital;
+import in.arogya.dto.HospitalRegistrationRequest;
+import in.arogya.repository.HospitalRepository;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;

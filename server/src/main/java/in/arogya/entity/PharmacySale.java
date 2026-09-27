@@ -28,4 +28,7 @@ public class PharmacySale extends TenantAwareEntity {
     private Double totalAmount;
 
     private String paymentStatus; // e.g., PAID, UNPAID
+
+    @OneToMany(mappedBy = "pharmacySale", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    private java.util.List<PharmacySaleItem> items = new java.util.ArrayList<>();
 }
