@@ -267,7 +267,7 @@ export function HospitalCapabilitiesSection() {
         </div>
 
         {/* ─── Desktop & Tablet Expanding Horizontal Accordion Deck ─── */}
-        <div className="hidden md:flex flex-row items-stretch gap-2.5 lg:gap-3.5 h-[560px] w-full transition-all duration-500 ease-out select-none">
+        <div className="hidden md:flex flex-row items-stretch gap-2.5 lg:gap-3.5 h-[600px] lg:h-[620px] w-full transition-all duration-500 ease-out select-none">
           {filteredCapabilities.map((cap) => {
             const Icon = cap.icon;
             const isActive = currentActive?.id === cap.id;
@@ -305,58 +305,58 @@ export function HospitalCapabilitiesSection() {
 
                 {/* ─── EXPANDED CARD CONTENT ─── */}
                 {isActive ? (
-                  <div className="relative z-10 p-6 lg:p-8 flex flex-col justify-between h-full animate-fadeIn">
+                  <div className="relative z-10 p-5 lg:p-7 flex flex-col justify-between h-full overflow-y-auto no-scrollbar animate-fadeIn">
                     {/* Top Bar: Icon, Badge, Capability Number */}
                     <div>
-                      <div className="flex items-center justify-between mb-4">
-                        <div className="flex items-center gap-3">
-                          <span className="w-12 h-12 rounded-2xl bg-teal-500/20 backdrop-blur-md border border-teal-400/30 text-teal-300 flex items-center justify-center shrink-0 shadow-lg shadow-teal-500/20">
-                            <Icon className="w-6 h-6" />
+                      <div className="flex items-center justify-between mb-3">
+                        <div className="flex items-center gap-2.5">
+                          <span className="w-10 h-10 lg:w-11 lg:h-11 rounded-xl bg-teal-500/20 backdrop-blur-md border border-teal-400/30 text-teal-300 flex items-center justify-center shrink-0 shadow-lg shadow-teal-500/20">
+                            <Icon className="w-5 h-5 lg:w-5.5 lg:h-5.5" />
                           </span>
-                          <span className={`badge ${cap.badgeColor} text-[11px]`}>
+                          <span className={`badge ${cap.badgeColor} text-[11px] py-0.5 px-2.5`}>
                             {cap.badge}
                           </span>
                         </div>
-                        <span className="font-mono text-xs font-bold text-white/70 bg-white/10 backdrop-blur-md px-3 py-1 rounded-full border border-white/10">
+                        <span className="font-mono text-xs font-bold text-white/70 bg-white/10 backdrop-blur-md px-2.5 py-0.5 rounded-full border border-white/10">
                           {cap.num} / 08
                         </span>
                       </div>
 
                       {/* Title & Tagline */}
-                      <h3 className="font-display text-2xl lg:text-3xl font-bold text-white tracking-tight leading-snug drop-shadow-sm">
+                      <h3 className="font-display text-xl sm:text-2xl lg:text-3xl font-bold text-white tracking-tight leading-snug drop-shadow-sm">
                         {cap.title}
                       </h3>
-                      <p className="text-xs sm:text-sm font-semibold text-teal-300 mt-1.5 flex items-center gap-1.5">
-                        <span className="w-1.5 h-1.5 rounded-full bg-teal-400 animate-pulse" />
-                        {cap.tagline}
+                      <p className="text-xs sm:text-sm font-semibold text-teal-300 mt-1 flex items-center gap-1.5">
+                        <span className="w-1.5 h-1.5 rounded-full bg-teal-400 animate-pulse shrink-0" />
+                        <span>{cap.tagline}</span>
                       </p>
 
                       {/* Description */}
-                      <p className="text-xs sm:text-sm text-slate-200/90 leading-relaxed mt-3 max-w-xl">
+                      <p className="text-xs lg:text-[13px] text-slate-200/90 leading-relaxed mt-2.5 max-w-xl">
                         {cap.description}
                       </p>
                     </div>
 
                     {/* Middle: Feature Checklist Box */}
-                    <div className="bg-white/10 dark:bg-black/40 backdrop-blur-md border border-white/15 rounded-2xl p-4 my-auto">
-                      <div className="text-[11px] font-semibold uppercase tracking-wider text-teal-300/90 mb-2.5">
+                    <div className="bg-white/10 dark:bg-black/40 backdrop-blur-md border border-white/15 rounded-2xl p-3.5 lg:p-4 my-2.5">
+                      <div className="text-[10px] font-bold uppercase tracking-wider text-teal-300/90 mb-2">
                         Key Capabilities Included
                       </div>
-                      <ul className="grid sm:grid-cols-2 gap-2 text-xs text-white/95">
+                      <ul className="grid sm:grid-cols-2 gap-x-3 gap-y-2 text-xs text-white/95">
                         {cap.features.map((feat) => (
                           <li key={feat} className="flex items-start gap-2">
-                            <CheckCircle2 className="w-4 h-4 text-teal-400 shrink-0 mt-0.5" />
-                            <span className="leading-tight">{feat}</span>
+                            <CheckCircle2 className="w-3.5 h-3.5 text-teal-400 shrink-0 mt-0.5" />
+                            <span className="leading-snug">{feat}</span>
                           </li>
                         ))}
                       </ul>
                     </div>
 
                     {/* Bottom Action Footer */}
-                    <div className="pt-2 flex items-center justify-between border-t border-white/15">
+                    <div className="pt-2.5 flex items-center justify-between border-t border-white/15 shrink-0">
                       <Link
                         href="/register-hospital"
-                        className="inline-flex items-center gap-2 px-4 py-2.5 rounded-xl bg-teal hover:bg-teal-dark text-white text-xs font-semibold shadow-md transition-all group"
+                        className="inline-flex items-center gap-2 px-4 py-2 rounded-xl bg-teal hover:bg-teal-dark text-white text-xs font-semibold shadow-md transition-all group"
                       >
                         <span>Deploy for your hospital</span>
                         <ArrowRight className="w-3.5 h-3.5 transition-transform group-hover:translate-x-1" />
