@@ -321,4 +321,11 @@
   .section-container {
     @apply max-w-6xl mx-auto px-4 sm:px-6;
   }
+
+  /* ─── Modern Card Deck Accordion ─────────────────────────────────────────── */
+  .accordion-vertical-text {
+    writing-mode: vertical-rl;
+    transform: rotate(180deg);
+    text-orientation: mixed;
+  }
 }
