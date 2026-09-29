@@ -24,5 +24,6 @@ public class ArogyaHmsApplication {
 
     public static void main(String[] args) {
         SpringApplication.run(ArogyaHmsApplication.class, args);
+        System.out.println("Started...");
     }
 }

@@ -2,7 +2,7 @@
 
 import React, { useState } from "react";
 import { motion } from "framer-motion";
-import { Activity, Users, Bed, IndianRupee, TrendingUp, TrendingDown, Calendar, ArrowRight } from "lucide-react";
+import { Activity, Users, Stethoscope, IndianRupee, TrendingUp, TrendingDown, Calendar, ArrowRight } from "lucide-react";
 import {
   AreaChart,
   Area,
@@ -26,7 +26,7 @@ const patientData = [
 
 const stats = [
   { title: "Today's Revenue", value: "₹2,45,000", icon: IndianRupee, trend: "+14.5%", isPositive: true, color: "bg-blue-500/10 text-blue-500" },
-  { title: "Active Bed Occupancy", value: "86 / 120", icon: Bed, trend: "72% Full", isPositive: true, color: "bg-teal-500/10 text-teal-500" },
+  { title: "Total Consultations", value: "48", icon: Stethoscope, trend: "+12%", isPositive: true, color: "bg-teal-500/10 text-teal-500" },
   { title: "Total Appointments", value: "142", icon: Calendar, trend: "+5.2%", isPositive: true, color: "bg-purple-500/10 text-purple-500" },
   { title: "Avg Wait Time", value: "14 min", icon: Activity, trend: "-2.1%", isPositive: true, color: "bg-orange-500/10 text-orange-500" },
 ];

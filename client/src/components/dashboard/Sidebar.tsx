@@ -37,12 +37,7 @@ const navItems = [
     icon: Stethoscope, 
     roles: ["DOCTOR", "NURSE", "HOSPITAL_ADMIN"] 
   },
-  { 
-    name: "Wards & Beds", 
-    href: "/wards", 
-    icon: Bed, 
-    roles: ["HOSPITAL_ADMIN", "RECEPTIONIST", "NURSE", "DOCTOR"] 
-  },
+
   { 
     name: "Pharmacy Inventory", 
     href: "/pharmacy", 
