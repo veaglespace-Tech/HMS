@@ -9,7 +9,7 @@ export const apiSlice = createApi({
       return headers;
     },
   }),
-  tagTypes: ['Patient', 'Doctor', 'Appointment', 'Encounter', 'Bill'],
+  tagTypes: ['Patient', 'Doctor', 'Appointment', 'Encounter', 'Bill', 'Pharmacy', 'Laboratory'],
   endpoints: (builder) => ({
     // Patient Endpoints
     getPatients: builder.query<any[], void>({
