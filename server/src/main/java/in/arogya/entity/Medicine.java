@@ -25,4 +25,6 @@ public class Medicine extends TenantAwareEntity {
     private Integer reorderLevel;
 
     private String manufacturer;
+
+    private Integer stockQuantity;
 }

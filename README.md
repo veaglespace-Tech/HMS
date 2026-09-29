@@ -1,6 +1,7 @@
-# Arogya HMS
+# Arogya HMS (Clinic Edition)
 
-Multi-tenant Hospital Management SaaS for any healthcare facility — private clinic, polyclinic, nursing home, multispecialty hospital, trust hospital, diagnostic centre, day-care centre, and government facilities.
+A streamlined, lightning-fast Multi-tenant SaaS Management System designed specifically for **Short Clinics, Polyclinics, and Independent Practitioners**. 
+It strips away the bloat of massive hospital systems to focus on the 4 core pillars: Appointments, AI-powered Consultations, Pharmacy, and Billing.
 
 ---
 

@@ -1,13 +1,41 @@
-import type { Metadata } from "next";
+"use client";
+
 import Link from "next/link";
 import { Activity } from "lucide-react";
-
-export const metadata: Metadata = {
-  title: "Login — Arogya HMS",
-  description: "Login to Arogya HMS hospital management system.",
-};
+import { useState } from "react";
+import { useRouter } from "next/navigation";
+import { useLoginMutation } from "@/redux/services/arogyaApi";
+import { useDispatch } from "react-redux";
+import { setAuth } from "@/redux/slices/authSlice";
 
 export default function LoginPage() {
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [errorMsg, setErrorMsg] = useState("");
+  
+  const router = useRouter();
+  const dispatch = useDispatch();
+  const [login, { isLoading }] = useLoginMutation();
+
+  const handleLogin = async (e: React.FormEvent) => {
+    e.preventDefault();
+    setErrorMsg("");
+    
+    try {
+      const response = await login({ email, password }).unwrap();
+      
+      if (response && response.token) {
+        dispatch(setAuth({
+          token: response.token,
+          user: response.user
+        }));
+        router.push("/dashboard"); // Redirect to actual dashboard
+      }
+    } catch (err: any) {
+      setErrorMsg(err?.data?.message || "Invalid credentials. Please try again.");
+    }
+  };
+
   return (
     <div className="min-h-screen bg-canvas dark:bg-background flex items-center justify-center py-12 px-4">
       <div className="w-full max-w-md">
@@ -25,12 +53,15 @@ export default function LoginPage() {
 
         {/* Card */}
         <div className="bg-white dark:bg-card rounded-2xl border border-border shadow-soft p-8">
-          <form className="flex flex-col gap-4">
+          <form className="flex flex-col gap-4" onSubmit={handleLogin}>
             <div>
               <label className="block text-sm font-medium text-foreground mb-1.5">Email</label>
               <input
                 id="login-email"
                 type="email"
+                required
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
                 autoComplete="email"
                 placeholder="doctor@hospital.com"
                 className="w-full px-4 py-3 rounded-xl border border-border bg-canvas dark:bg-background text-foreground placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-primary/30 transition-all"
@@ -44,21 +75,27 @@ export default function LoginPage() {
               <input
                 id="login-password"
                 type="password"
+                required
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
                 autoComplete="current-password"
                 placeholder="••••••••"
                 className="w-full px-4 py-3 rounded-xl border border-border bg-canvas dark:bg-background text-foreground placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-primary/30 transition-all"
               />
             </div>
 
-            <div className="rounded-xl border border-info/30 bg-info/5 p-3 text-sm text-info">
-              🔒 Authentication will be wired in Step 2. This is a UI preview.
-            </div>
+            {errorMsg && (
+              <div className="rounded-xl border border-red-500/30 bg-red-500/5 p-3 text-sm text-red-500">
+                {errorMsg}
+              </div>
+            )}
 
             <button
-              type="button"
-              className="w-full py-3 rounded-xl bg-primary text-white font-semibold hover:bg-primary-600 transition-all"
+              type="submit"
+              disabled={isLoading}
+              className="w-full py-3 rounded-xl bg-primary text-white font-semibold hover:bg-primary-600 transition-all disabled:opacity-50"
             >
-              Sign In
+              {isLoading ? "Signing In..." : "Sign In"}
             </button>
           </form>
 

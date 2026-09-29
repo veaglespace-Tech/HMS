@@ -10,8 +10,10 @@ import org.springframework.scheduling.annotation.EnableAsync;
 import org.springframework.scheduling.annotation.EnableScheduling;
 
 import org.springframework.boot.autoconfigure.security.servlet.UserDetailsServiceAutoConfiguration;
+import org.springframework.data.jpa.repository.config.EnableJpaAuditing;
 
 @SpringBootApplication(exclude = { UserDetailsServiceAutoConfiguration.class })
+@EnableJpaAuditing(auditorAwareRef = "auditorAwareImpl")
 @ComponentScan(basePackages = "in.arogya")
 @EnableJpaRepositories(basePackages = "in.arogya")
 @EntityScan(basePackages = "in.arogya")
@@ -22,5 +24,6 @@ public class ArogyaHmsApplication {
 
     public static void main(String[] args) {
         SpringApplication.run(ArogyaHmsApplication.class, args);
+        System.out.println("Started...");
     }
 }

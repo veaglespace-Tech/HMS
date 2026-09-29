@@ -30,4 +30,13 @@ public class EncounterController {
                 .map(ResponseEntity::ok)
                 .orElse(ResponseEntity.notFound().build());
     }
+
+    @PostMapping("/{id}/ai-scribe")
+    public ResponseEntity<in.arogya.entity.ClinicalNote> generateAiScribeNote(
+            @PathVariable String id,
+            @RequestHeader("X-User-Id") String authorId,
+            @RequestBody in.arogya.dto.AiScribeRequest request,
+            @org.springframework.beans.factory.annotation.Autowired in.arogya.service.AiScribeService aiScribeService) {
+        return ResponseEntity.ok(aiScribeService.processAndSaveNote(id, authorId, request.getRawNote()));
+    }
 }

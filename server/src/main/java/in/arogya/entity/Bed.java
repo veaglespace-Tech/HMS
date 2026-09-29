@@ -25,4 +25,8 @@ public class Bed extends TenantAwareEntity {
     private String status; // e.g., Available, Occupied, Maintenance
 
     private Double dailyCharge;
+
+    @ManyToOne
+    @JoinColumn(name = "current_patient_id")
+    private Patient currentPatient;
 }

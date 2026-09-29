@@ -1,15 +1,15 @@
-package in.arogya.onboarding.service;
+package in.arogya.service;
 
 import in.arogya.common.audit.AuditEvent;
 import in.arogya.common.audit.AuditService;
 import in.arogya.common.audit.Audited;
 import in.arogya.common.exception.BusinessException;
-import in.arogya.onboarding.entity.Hospital;
-import in.arogya.onboarding.entity.SubscriptionPlan;
-import in.arogya.onboarding.dto.HospitalRegistrationRequest;
-import in.arogya.onboarding.dto.HospitalRegistrationResponse;
-import in.arogya.onboarding.repository.HospitalRepository;
-import in.arogya.onboarding.repository.SubscriptionPlanRepository;
+import in.arogya.entity.Hospital;
+import in.arogya.entity.SubscriptionPlan;
+import in.arogya.dto.HospitalRegistrationRequest;
+import in.arogya.dto.HospitalRegistrationResponse;
+import in.arogya.repository.HospitalRepository;
+import in.arogya.repository.SubscriptionPlanRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;

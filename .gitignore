@@ -4,6 +4,7 @@
 .env.*.local
 
 # Server
+server/.env
 server/target/
 *.class
 *.jar
