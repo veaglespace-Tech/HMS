@@ -49,10 +49,10 @@ class ModuleIsolationTest {
     @Test
     void domainClassesShouldNotDependOnApiClasses() {
         ArchRule rule = noClasses()
-                .that().resideInAPackage("in.arogya..domain..")
+                .that().resideInAnyPackage("in.arogya..domain..", "in.arogya..entity..")
                 .should().dependOnClassesThat()
                 .resideInAnyPackage("in.arogya..api..", "in.arogya..dto..")
-                .because("Domain classes must not depend on API/DTO layer (Dependency Rule)");
+                .because("Domain and entity classes must not depend on API/DTO layer (Dependency Rule)");
 
         rule.check(classes);
     }

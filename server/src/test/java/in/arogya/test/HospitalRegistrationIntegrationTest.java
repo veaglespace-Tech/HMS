@@ -1,39 +1,48 @@
 package in.arogya.test;
 
+import in.arogya.common.entity.BaseEntity;
 import in.arogya.entity.Hospital;
-import in.arogya.dto.HospitalRegistrationRequest;
 import in.arogya.repository.HospitalRepository;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.SpringBootConfiguration;
+import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
+import org.springframework.boot.autoconfigure.domain.EntityScan;
+import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
-import org.springframework.test.context.DynamicPropertyRegistry;
-import org.springframework.test.context.DynamicPropertySource;
-import org.testcontainers.containers.MySQLContainer;
-import org.testcontainers.junit.jupiter.Container;
-import org.testcontainers.junit.jupiter.Testcontainers;
+import org.springframework.context.annotation.Bean;
+import org.springframework.data.domain.AuditorAware;
+import org.springframework.data.jpa.repository.config.EnableJpaAuditing;
+import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
+import org.springframework.test.context.ContextConfiguration;
+import org.springframework.test.context.TestPropertySource;
+
+import java.util.Optional;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
 /**
- * Integration test for hospital registration using Testcontainers MySQL.
+ * Integration test for hospital repository operations using in-memory H2 database.
  */
-@Testcontainers
 @DataJpaTest
+@ContextConfiguration(classes = HospitalRegistrationIntegrationTest.TestConfig.class)
+@AutoConfigureTestDatabase(replace = AutoConfigureTestDatabase.Replace.ANY)
+@TestPropertySource(properties = {
+    "spring.jpa.hibernate.ddl-auto=create-drop",
+    "spring.flyway.enabled=false"
+})
 class HospitalRegistrationIntegrationTest {
 
-    @Container
-    static MySQLContainer<?> mysql = new MySQLContainer<>("mysql:8.0")
-            .withDatabaseName("arogya_test")
-            .withUsername("arogya")
-            .withPassword("arogya_test");
-
-    @DynamicPropertySource
-    static void mysqlProperties(DynamicPropertyRegistry registry) {
-        registry.add("spring.datasource.url", mysql::getJdbcUrl);
-        registry.add("spring.datasource.username", mysql::getUsername);
-        registry.add("spring.datasource.password", mysql::getPassword);
-        registry.add("spring.jpa.hibernate.ddl-auto", () -> "create-drop");
-        registry.add("spring.flyway.enabled", () -> "false");
+    @SpringBootConfiguration
+    @EnableAutoConfiguration
+    @EnableJpaAuditing(auditorAwareRef = "testAuditor")
+    @EntityScan(basePackageClasses = {Hospital.class, BaseEntity.class})
+    @EnableJpaRepositories(basePackageClasses = HospitalRepository.class)
+    static class TestConfig {
+        @Bean
+        public AuditorAware<String> testAuditor() {
+            return () -> Optional.of("TEST_AUDITOR");
+        }
     }
 
     @Autowired
