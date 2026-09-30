@@ -202,7 +202,7 @@ export function HospitalCapabilitiesSection() {
   return (
     <section
       id="capabilities"
-      className="py-20 sm:py-28 bg-[#fafaf8] dark:bg-[#0c1017] border-t border-line dark:border-line-dark relative overflow-hidden transition-colors"
+      className="py-14 sm:py-20 bg-[#fafaf8] dark:bg-[#0c1017] border-t border-line dark:border-line-dark relative overflow-hidden transition-colors"
     >
       <div className="section-container">
         {/* Section Header */}
@@ -257,9 +257,11 @@ export function HospitalCapabilitiesSection() {
             </button>
           ))}
         </div>
+      </div>
 
-        {/* ─── Creative Showcase Slider Container ─── */}
-        <div className="creative-showcase--slider">
+      {/* ─── Creative Showcase Slider: Full Edge-to-Edge Screen Experience ─── */}
+      <div className="w-full relative">
+        <div className="creative-showcase--slider w-full">
           <div className="banner-horizental">
             <Swiper
               onSwiper={(swiper) => {
@@ -292,19 +294,19 @@ export function HospitalCapabilitiesSection() {
                     />
                       <div className="slide-container">
                         <div className="slide-row">
-                          <div className="slider-content max-w-3xl">
+                          <div className="slider-content max-w-2xl">
                             {/* Category Badge & Index Pill with Parallax */}
                             <div
                               data-swiper-parallax="-350"
-                              className="flex items-center gap-3 mb-4"
+                              className="flex items-center gap-2.5 mb-2 sm:mb-2.5"
                             >
-                              <span className="w-12 h-12 rounded-2xl bg-teal-500/25 backdrop-blur-md border border-teal-400/40 text-teal-300 flex items-center justify-center shrink-0 shadow-lg shadow-teal-500/20">
-                                <Icon className="w-6 h-6" />
+                              <span className="w-9 h-9 sm:w-10 sm:h-10 rounded-xl bg-teal-500/25 backdrop-blur-md border border-teal-400/40 text-teal-300 flex items-center justify-center shrink-0 shadow-md shadow-teal-500/20">
+                                <Icon className="w-5 h-5" />
                               </span>
-                              <span className="badge badge-teal text-xs py-1 px-3 uppercase tracking-wider font-semibold">
+                              <span className="badge badge-teal text-[11px] py-0.5 px-2.5 uppercase tracking-wider font-semibold">
                                 {cap.badge}
                               </span>
-                              <span className="font-mono text-xs font-bold text-white/80 bg-white/10 backdrop-blur-md px-3 py-1 rounded-full border border-white/15">
+                              <span className="font-mono text-[11px] font-bold text-white/80 bg-white/10 backdrop-blur-md px-2.5 py-0.5 rounded-full border border-white/15">
                                 {cap.num} / 08
                               </span>
                             </div>
@@ -312,7 +314,7 @@ export function HospitalCapabilitiesSection() {
                             {/* Heading with Parallax */}
                             <h2
                               data-swiper-parallax="-250"
-                              className="font-display text-3xl sm:text-4xl lg:text-5xl font-bold text-white tracking-tight leading-tight mb-2 drop-shadow-md"
+                              className="font-display text-2xl sm:text-3xl lg:text-[34px] font-bold text-white tracking-tight leading-tight mb-1 drop-shadow-md"
                             >
                               {cap.title}
                             </h2>
@@ -320,7 +322,7 @@ export function HospitalCapabilitiesSection() {
                             {/* Tagline with Parallax */}
                             <h3
                               data-swiper-parallax="-180"
-                              className="text-base sm:text-lg font-semibold text-teal-300 flex items-center gap-2 mb-4"
+                              className="text-xs sm:text-sm font-semibold text-teal-300 flex items-center gap-2 mb-2"
                             >
                               <span className="w-2 h-2 rounded-full bg-teal-400 animate-pulse shrink-0" />
                               <span>{cap.tagline}</span>
@@ -329,7 +331,7 @@ export function HospitalCapabilitiesSection() {
                             {/* Clinical Description with Parallax */}
                             <p
                               data-swiper-parallax="-120"
-                              className="text-sm sm:text-base text-slate-200/90 leading-relaxed max-w-2xl mb-6"
+                              className="text-xs sm:text-[13px] text-slate-200/90 leading-relaxed max-w-xl mb-3 line-clamp-2"
                             >
                               {cap.description}
                             </p>
@@ -337,17 +339,17 @@ export function HospitalCapabilitiesSection() {
                             {/* Key Capabilities Checklist Box with Parallax */}
                             <div
                               data-swiper-parallax="-60"
-                              className="bg-slate-950/60 dark:bg-black/60 backdrop-blur-md border border-white/15 rounded-2xl p-4 sm:p-5 max-w-2xl mb-8 shadow-xl"
+                              className="bg-slate-950/60 dark:bg-black/60 backdrop-blur-md border border-white/15 rounded-xl p-2.5 sm:p-3 max-w-xl mb-3.5 shadow-lg"
                             >
-                              <div className="text-[11px] font-mono font-bold uppercase tracking-wider text-teal-300/90 mb-3 flex items-center gap-2">
-                                <Sparkles className="w-3.5 h-3.5 text-teal-400 shrink-0" />
+                              <div className="text-[10px] sm:text-[11px] font-mono font-bold uppercase tracking-wider text-teal-300/90 mb-1.5 flex items-center gap-1.5">
+                                <Sparkles className="w-3 h-3 text-teal-400 shrink-0" />
                                 <span>Key Capabilities Included</span>
                               </div>
-                              <ul className="grid sm:grid-cols-2 gap-x-5 gap-y-2.5 text-xs sm:text-[13px] text-white/95">
+                              <ul className="grid sm:grid-cols-2 gap-x-4 gap-y-1 text-xs text-white/95">
                                 {cap.features.map((feat) => (
-                                  <li key={feat} className="flex items-start gap-2">
-                                    <CheckCircle2 className="w-4 h-4 text-teal-400 shrink-0 mt-0.5" />
-                                    <span className="leading-snug">{feat}</span>
+                                  <li key={feat} className="flex items-start gap-1.5">
+                                    <CheckCircle2 className="w-3.5 h-3.5 text-teal-400 shrink-0 mt-0.5" />
+                                    <span className="leading-tight">{feat}</span>
                                   </li>
                                 ))}
                               </ul>
@@ -356,16 +358,16 @@ export function HospitalCapabilitiesSection() {
                             {/* Bottom Action Footer with Parallax */}
                             <div
                               data-swiper-parallax="0"
-                              className="flex flex-wrap items-center gap-4"
+                              className="flex flex-wrap items-center gap-3"
                             >
                               <Link
                                 href="/register-hospital"
-                                className="inline-flex items-center gap-2 px-6 py-3 rounded-xl bg-teal hover:bg-teal-dark text-white text-xs sm:text-sm font-semibold shadow-lg shadow-teal-500/25 transition-all hover:scale-105 group"
+                                className="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl bg-teal hover:bg-teal-dark text-white text-xs sm:text-sm font-semibold shadow-lg shadow-teal-500/25 transition-all hover:scale-105 group"
                               >
                                 <span>Deploy for your hospital</span>
                                 <ArrowRight className="w-4 h-4 transition-transform group-hover:translate-x-1" />
                               </Link>
-                              <span className="text-xs text-white/70 font-medium px-3.5 py-1.5 rounded-full bg-white/10 backdrop-blur-md border border-white/15">
+                              <span className="text-xs text-white/70 font-medium px-3 py-1 rounded-full bg-white/10 backdrop-blur-md border border-white/15">
                                 ABDM &amp; NABH Ready
                               </span>
                             </div>

@@ -454,23 +454,31 @@
     position: relative;
     width: 100%;
     overflow: hidden;
-    border-radius: 32px;
-    box-shadow: 0 25px 60px -15px rgba(0, 0, 0, 0.5);
     background: #0c1017;
+    border-top: 1px solid rgba(255, 255, 255, 0.08);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+    box-shadow: 0 20px 50px -10px rgba(0, 0, 0, 0.6);
   }
 
   .creative-showcase--slider .swiper-slide {
     position: relative;
     overflow: hidden;
     width: 100%;
-    min-height: 580px;
+    min-height: 440px;
+    height: 460px;
     display: flex;
     align-items: center;
   }
 
   @media (min-width: 1024px) {
     .creative-showcase--slider .swiper-slide {
-      min-height: 640px;
+      height: 470px;
+    }
+  }
+
+  @media (min-width: 1440px) {
+    .creative-showcase--slider .swiper-slide {
+      height: 480px;
     }
   }
 
@@ -488,7 +496,7 @@
     content: "";
     position: absolute;
     inset: 0;
-    background: linear-gradient(90deg, rgba(10, 15, 25, 0.96) 0%, rgba(10, 15, 25, 0.85) 48%, rgba(10, 15, 25, 0.35) 100%);
+    background: linear-gradient(90deg, rgba(10, 15, 25, 0.96) 0%, rgba(10, 15, 25, 0.82) 42%, rgba(10, 15, 25, 0.3) 100%);
     z-index: 1;
     pointer-events: none;
   }
@@ -497,18 +505,24 @@
     width: 100%;
     position: relative;
     z-index: 10;
-    padding: 48px 24px 64px 24px;
+    padding: 24px 20px;
   }
 
   @media (min-width: 640px) {
     .creative-showcase--slider .slide-container {
-      padding: 56px 40px 72px 40px;
+      padding: 28px 40px;
     }
   }
 
   @media (min-width: 1024px) {
     .creative-showcase--slider .slide-container {
-      padding: 64px 64px 80px 64px;
+      padding: 32px 64px;
+    }
+  }
+
+  @media (min-width: 1440px) {
+    .creative-showcase--slider .slide-container {
+      padding: 36px 96px;
     }
   }
 
@@ -517,7 +531,7 @@
   }
 
   .creative-showcase--slider .swiper-pagination {
-    bottom: 24px !important;
+    bottom: 20px !important;
     left: 50% !important;
     transform: translateX(-50%) !important;
     width: auto !important;
