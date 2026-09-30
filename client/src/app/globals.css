@@ -337,11 +337,11 @@
   }
 
   /* ─── 3D Cylinder Curved Carousel (User's Exact Specification) ─────────── */
+  /* ─── 3D Cylinder Curved Carousel (No-Clipping Horizon Design) ─────────── */
   .carousel-cylinder {
     position: relative;
     width: 100%;
-    height: 480px;
-    perspective: 120px;
+    height: 460px;
     overflow: hidden;
     cursor: grab;
     user-select: none;
@@ -351,32 +351,42 @@
     cursor: grabbing;
   }
 
-  .carousel-cylinder::before {
-    top: -475%;
-  }
-
-  .carousel-cylinder::after {
-    bottom: -475%;
-  }
-
+  /* Left & Right Horizon Edge Vignettes */
   .carousel-cylinder::before,
   .carousel-cylinder::after {
     content: "";
     position: absolute;
+    top: 0;
+    bottom: 0;
+    width: 48px;
     z-index: 10;
-    left: 50%;
-    transform: translateX(-50%);
-    width: 500%;
-    height: 500%;
-    border-radius: 50%;
-    background: var(--carousel-bg, #fafaf8);
     pointer-events: none;
-    transition: background-color 0.3s;
+    transition: opacity 0.3s;
   }
 
-  .dark .carousel-cylinder::before,
+  .carousel-cylinder::before {
+    left: 0;
+    background: linear-gradient(to right, var(--carousel-bg, #fafaf8), transparent);
+  }
+
+  .carousel-cylinder::after {
+    right: 0;
+    background: linear-gradient(to left, var(--carousel-bg, #fafaf8), transparent);
+  }
+
+  .dark .carousel-cylinder::before {
+    background: linear-gradient(to right, var(--carousel-bg-dark, #0c1017), transparent);
+  }
+
   .dark .carousel-cylinder::after {
-    background: var(--carousel-bg-dark, #0c1017);
+    background: linear-gradient(to left, var(--carousel-bg-dark, #0c1017), transparent);
+  }
+
+  @media (min-width: 768px) {
+    .carousel-cylinder::before,
+    .carousel-cylinder::after {
+      width: 80px;
+    }
   }
 
   .carousel-viewport {
@@ -391,7 +401,7 @@
     -ms-overflow-style: none;
     -webkit-overflow-scrolling: touch;
     align-items: center;
-    padding: 0 16px;
+    padding: 16px 16px;
   }
 
   .carousel-viewport::-webkit-scrollbar {
@@ -401,10 +411,10 @@
   .carousel-slide {
     position: relative;
     flex: 0 0 85%;
-    height: 380px;
+    height: 400px;
     scroll-snap-align: center;
     counter-increment: item;
-    padding: 0 12px;
+    padding: 0 10px;
     transition: transform 0.4s ease;
   }
 
@@ -433,9 +443,7 @@
     border-radius: 28px;
     overflow: hidden;
     scroll-snap-align: center;
-    background-size: cover;
-    background-position: center;
-    box-shadow: 0 12px 36px -10px rgba(0, 0, 0, 0.3);
-    border: 2px solid rgba(255, 255, 255, 0.15);
+    box-shadow: 0 12px 32px -8px rgba(0, 0, 0, 0.25);
+    border: 1px solid rgba(255, 255, 255, 0.15);
   }
 }
