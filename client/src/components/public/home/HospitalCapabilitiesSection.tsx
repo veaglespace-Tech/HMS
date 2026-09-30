@@ -29,6 +29,7 @@ interface CapabilityItem {
   badge: string;
   badgeColor: string;
   image: string;
+  bgPosition?: string;
   description: string;
   features: string[];
 }
@@ -97,6 +98,7 @@ const capabilities: CapabilityItem[] = [
     badge: "Supply Chain & POS",
     badgeColor: "badge-coral",
     image: "/assets/doctor-female.jpg",
+    bgPosition: "right 5%",
     description:
       "Integrated pharmacy POS billing counter, batch-level inventory management with near-expiry alerts, automated minimum stock replenishment, and GST Schedule H compliance.",
     features: [
@@ -208,7 +210,10 @@ export function HospitalCapabilitiesSection() {
                   {/* Full Horizontal & Vertical Background */}
                   <div
                     className="slide-bg"
-                    style={{ backgroundImage: `url(${cap.image})` }}
+                    style={{
+                      backgroundImage: `url(${cap.image})`,
+                      backgroundPosition: cap.bgPosition || "center right",
+                    }}
                     data-swiper-parallax="-20%"
                   />
                   <div className="slide-container">
