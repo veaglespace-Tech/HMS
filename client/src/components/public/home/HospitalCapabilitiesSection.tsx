@@ -284,12 +284,12 @@ export function HospitalCapabilitiesSection() {
 
                 return (
                   <SwiperSlide key={cap.id} className="swiper-slide">
-                    {/* Parallax Background */}
+                    {/* Full Horizontal & Vertical Background */}
                     <div
                       className="slide-bg"
                       style={{ backgroundImage: `url(${cap.image})` }}
-                      data-swiper-parallax="1152"
-                    >
+                      data-swiper-parallax="-20%"
+                    />
                       <div className="slide-container">
                         <div className="slide-row">
                           <div className="slider-content max-w-3xl">
@@ -372,7 +372,6 @@ export function HospitalCapabilitiesSection() {
                           </div>
                         </div>
                       </div>
-                    </div>
                   </SwiperSlide>
                 );
               })}
