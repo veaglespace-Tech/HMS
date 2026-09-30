@@ -349,33 +349,42 @@
     cursor: grabbing;
   }
 
+  /* Left & Right Horizon Edge Vignettes */
   .cylinder-carousel::before,
   .cylinder-carousel::after {
     content: "";
     position: absolute;
+    top: 0;
+    bottom: 0;
+    width: 48px;
     z-index: 10;
-    left: 50%;
-    transform: translateX(-50%);
-    width: 480%;
-    height: 480%;
-    border-radius: 50%;
     pointer-events: none;
-    transition: background-color 0.3s;
+    transition: opacity 0.3s;
   }
 
   .cylinder-carousel::before {
-    top: -462%;
-    background: var(--carousel-bg, #fbfbf9);
+    left: 0;
+    background: linear-gradient(to right, var(--carousel-bg, #fafaf8), transparent);
   }
 
   .cylinder-carousel::after {
-    bottom: -462%;
-    background: var(--carousel-bg, #fbfbf9);
+    right: 0;
+    background: linear-gradient(to left, var(--carousel-bg, #fafaf8), transparent);
   }
 
-  .dark .cylinder-carousel::before,
+  .dark .cylinder-carousel::before {
+    background: linear-gradient(to right, var(--carousel-bg-dark, #0c1017), transparent);
+  }
+
   .dark .cylinder-carousel::after {
-    background: var(--carousel-bg-dark, #0d1219);
+    background: linear-gradient(to left, var(--carousel-bg-dark, #0c1017), transparent);
+  }
+
+  @media (min-width: 768px) {
+    .cylinder-carousel::before,
+    .cylinder-carousel::after {
+      width: 72px;
+    }
   }
 
   .cylinder-viewport {
@@ -386,7 +395,7 @@
     scrollbar-width: none;
     -ms-overflow-style: none;
     -webkit-overflow-scrolling: touch;
-    padding: 35px 20px;
+    padding: 16px 8px;
   }
 
   .cylinder-viewport::-webkit-scrollbar {
@@ -397,24 +406,24 @@
     position: relative;
     flex: 0 0 85%;
     scroll-snap-align: center;
-    transition: transform 0.4s ease, opacity 0.4s ease;
+    transition: transform 0.4s cubic-bezier(0.25, 1, 0.5, 1), opacity 0.4s ease;
   }
 
   @media (min-width: 640px) {
     .cylinder-slide {
-      flex: 0 0 50%;
+      flex: 0 0 48%;
     }
   }
 
   @media (min-width: 768px) {
     .cylinder-slide {
-      flex: 0 0 38%;
+      flex: 0 0 35%;
     }
   }
 
   @media (min-width: 1024px) {
     .cylinder-slide {
-      flex: 0 0 30%;
+      flex: 0 0 28%;
     }
   }
 }

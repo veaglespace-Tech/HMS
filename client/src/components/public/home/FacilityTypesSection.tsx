@@ -133,7 +133,7 @@ export function FacilityTypesSection() {
   const handleScroll = useCallback(() => {
     if (!viewportRef.current) return;
     const { scrollLeft, clientWidth } = viewportRef.current;
-    const slideWidth = clientWidth * 0.4;
+    const slideWidth = clientWidth * 0.35;
     const index = Math.round(scrollLeft / (slideWidth || 1));
     setActiveIndex(Math.min(Math.max(index, 0), facilityTypes.length - 1));
   }, []);
@@ -201,7 +201,7 @@ export function FacilityTypesSection() {
     >
       <div className="section-container">
         {/* Section Header with Navigation Controls */}
-        <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 mb-10 sm:mb-14">
+        <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 mb-8 sm:mb-12">
           <div className="max-w-2xl">
             <span className="badge badge-teal mb-3">
               <Sparkles className="w-3.5 h-3.5 text-teal" />
@@ -238,7 +238,7 @@ export function FacilityTypesSection() {
         </div>
       </div>
 
-      {/* ─── 3D Cylinder Curved Carousel ─── */}
+      {/* ─── Modern Facility Carousel ─── */}
       <div
         className="cylinder-carousel"
         onMouseDown={onMouseDown}
@@ -255,65 +255,69 @@ export function FacilityTypesSection() {
             const isCenter = activeIndex === i;
 
             return (
-              <div key={type.label} className="cylinder-slide px-3 sm:px-3.5">
+              <div key={type.label} className="cylinder-slide px-2.5 sm:px-3">
                 <div
-                  className={`h-[480px] rounded-[28px] overflow-hidden relative border transition-all duration-500 flex flex-col justify-between p-6 bg-white dark:bg-card shadow-soft group select-none ${
+                  className={`h-[510px] rounded-[24px] overflow-hidden relative border transition-all duration-400 flex flex-col justify-between p-4 sm:p-5 bg-white dark:bg-card shadow-soft group select-none ${
                     isCenter
-                      ? "border-teal/50 shadow-2xl ring-2 ring-teal/30 scale-[1.02]"
+                      ? "border-teal/50 shadow-2xl ring-2 ring-teal/30 scale-[1.01]"
                       : "border-border/80 dark:border-white/10 hover:border-teal/40 hover:shadow-medium"
                   }`}
                 >
-                  {/* Background Facility Image with Soft Gradient Fade */}
-                  <div className="absolute inset-0 h-48 overflow-hidden pointer-events-none">
-                    <Image
-                      src={type.image}
-                      alt={type.label}
-                      fill
-                      className="object-cover opacity-20 dark:opacity-15 group-hover:scale-105 group-hover:opacity-30 transition-all duration-700"
-                    />
-                    <div className="absolute inset-0 bg-gradient-to-b from-transparent via-white/80 dark:via-card/85 to-white dark:to-card" />
-                  </div>
+                  <div>
+                    {/* Visual Banner Header with Photographic Backdrop */}
+                    <div className="relative h-36 sm:h-40 w-full rounded-2xl overflow-hidden mb-3.5 border border-border/40 dark:border-white/10 shadow-sm shrink-0 bg-slate-900">
+                      <Image
+                        src={type.image}
+                        alt={type.label}
+                        fill
+                        className="object-cover group-hover:scale-105 transition-transform duration-700 opacity-80"
+                      />
+                      {/* Gradient Vignette over Banner */}
+                      <div className="absolute inset-0 bg-gradient-to-t from-slate-950/90 via-slate-950/45 to-black/20" />
 
-                  {/* Top: Icon & Capacity Tag */}
-                  <div className="relative z-10">
-                    <div className="flex items-center justify-between">
-                      <div className="w-12 h-12 rounded-2xl bg-teal/10 dark:bg-teal/20 text-teal dark:text-teal-bright border border-teal/20 flex items-center justify-center shadow-sm group-hover:scale-110 group-hover:bg-teal group-hover:text-white transition-all duration-300">
-                        <Icon className="w-6 h-6" />
+                      {/* Floating Badges inside Banner */}
+                      <div className="absolute inset-0 p-3 flex flex-col justify-between z-10">
+                        <div className="flex items-center justify-between">
+                          <div className="w-9 h-9 rounded-xl bg-white/20 backdrop-blur-md border border-white/30 text-white flex items-center justify-center shadow-md">
+                            <Icon className="w-5 h-5" />
+                          </div>
+                          <span className="px-2.5 py-0.5 rounded-full text-[10px] sm:text-[11px] font-semibold bg-white/20 backdrop-blur-md text-white border border-white/30 shadow-sm">
+                            {type.tag}
+                          </span>
+                        </div>
+
+                        <div>
+                          <span className="font-mono text-[10px] font-bold text-teal-300 uppercase tracking-wider block">
+                            {type.num} · {type.sub}
+                          </span>
+                          <h3 className="font-display text-base sm:text-lg font-bold text-white tracking-tight leading-snug drop-shadow-sm">
+                            {type.label}
+                          </h3>
+                        </div>
                       </div>
-                      <span className={`badge ${type.badgeColor} text-[11px] font-semibold py-1 px-3`}>
-                        {type.tag}
-                      </span>
                     </div>
 
-                    {/* Number & Subtitle */}
-                    <div className="mt-4">
-                      <span className="text-[11px] font-mono font-bold text-teal dark:text-teal-bright uppercase tracking-wider">
-                        {type.num} · {type.sub}
-                      </span>
-                      <h3 className="font-display text-xl sm:text-2xl font-bold text-foreground mt-1 tracking-tight group-hover:text-teal dark:group-hover:text-teal-bright transition-colors">
-                        {type.label}
-                      </h3>
-                      <p className="text-xs sm:text-[13px] text-ink-soft dark:text-cream-soft leading-relaxed mt-2 line-clamp-3">
-                        {type.desc}
-                      </p>
-                    </div>
-                  </div>
+                    {/* Description */}
+                    <p className="text-xs sm:text-[13px] text-ink-soft dark:text-cream-soft leading-relaxed line-clamp-2 px-0.5">
+                      {type.desc}
+                    </p>
 
-                  {/* Middle: Feature Highlights Box */}
-                  <div className="relative z-10 bg-muted/40 dark:bg-white/[0.03] backdrop-blur-sm border border-border/60 dark:border-white/10 rounded-2xl p-3.5 my-2 space-y-2">
-                    <div className="text-[10px] font-bold uppercase tracking-wider text-teal dark:text-teal-bright">
-                      Pre-Configured Setup
-                    </div>
-                    {type.highlights.map((item) => (
-                      <div key={item} className="flex items-start gap-2 text-xs text-foreground/90 font-medium">
-                        <CheckCircle2 className="w-3.5 h-3.5 text-teal shrink-0 mt-0.5" />
-                        <span className="leading-tight">{item}</span>
+                    {/* Pre-Configured Setup Features Box */}
+                    <div className="bg-muted/40 dark:bg-white/[0.03] border border-border/60 dark:border-white/10 rounded-xl p-3 mt-3 space-y-1.5">
+                      <div className="text-[10px] font-bold uppercase tracking-wider text-teal dark:text-teal-bright">
+                        Pre-Configured Setup
                       </div>
-                    ))}
+                      {type.highlights.map((item) => (
+                        <div key={item} className="flex items-start gap-2 text-xs text-foreground/90 font-medium">
+                          <CheckCircle2 className="w-3.5 h-3.5 text-teal shrink-0 mt-0.5" />
+                          <span className="leading-tight">{item}</span>
+                        </div>
+                      ))}
+                    </div>
                   </div>
 
-                  {/* Bottom: Action Link */}
-                  <div className="relative z-10 pt-3 border-t border-border/60 dark:border-white/10 flex items-center justify-between">
+                  {/* Bottom Action Footer */}
+                  <div className="pt-3 border-t border-border/60 dark:border-white/10 flex items-center justify-between shrink-0">
                     <Link
                       href="/register-hospital"
                       className="inline-flex items-center gap-1.5 text-xs font-semibold text-teal dark:text-teal-bright hover:underline group/link"
