@@ -30,7 +30,7 @@ const facilityTypes: FacilityType[] = [
     num: "01",
     icon: Stethoscope,
     label: "Private Clinic",
-    sub: "SOLO & GROUP PRACTICE",
+    sub: "Solo & Group Practice",
     desc: "Solo or group practice with OPD queues, fast UHID generation, and rapid E-prescriptions.",
     highlight: "OPD Token Queue & Fast E-Rx",
     image: "/assets/facilities/clinic.jpg",
@@ -39,7 +39,7 @@ const facilityTypes: FacilityType[] = [
     num: "02",
     icon: Building2,
     label: "Polyclinic",
-    sub: "MULTI SPECIALTY OPD",
+    sub: "Multi-Specialty OPD",
     desc: "Multi-consultant appointment roster scheduling, shared diagnostic sample desk, and central pharmacy.",
     highlight: "Specialist Roster Matrix",
     image: "/assets/facilities/polyclinic.jpg",
@@ -48,7 +48,7 @@ const facilityTypes: FacilityType[] = [
     num: "03",
     icon: HeartPulse,
     label: "Nursing Home",
-    sub: "INPATIENT WARD CARE",
+    sub: "Inpatient Ward Care",
     desc: "IPD + OPD with ward & bed management, nurse station MAR charts, and discharge summaries.",
     highlight: "Live Ward & Bed Matrix",
     image: "/assets/facilities/nursing-home.jpg",
@@ -57,7 +57,7 @@ const facilityTypes: FacilityType[] = [
     num: "04",
     icon: Hospital,
     label: "Multispecialty Hospital",
-    sub: "FULL SCALE TERTIARY",
+    sub: "Full-Scale Tertiary Facility",
     desc: "Full-scale hospital with 28 departments, 24/7 ICU telemetry, and OT slot scheduling.",
     highlight: "28 Clinical Departments",
     image: "/assets/facilities/multispecialty.jpg",
@@ -66,7 +66,7 @@ const facilityTypes: FacilityType[] = [
     num: "05",
     icon: FlaskConical,
     label: "Diagnostic Centre",
-    sub: "PATHOLOGY & RADIOLOGY",
+    sub: "Pathology & Radiology",
     desc: "Pathology and radiology reporting, bidirectional analyzer sync, and automated report dispatch.",
     highlight: "Automated Analyzer Sync",
     image: "/assets/facilities/diagnostic.jpg",
@@ -75,7 +75,7 @@ const facilityTypes: FacilityType[] = [
     num: "06",
     icon: Sun,
     label: "Day Care Centre",
-    sub: "SAME-DAY SURGICAL",
+    sub: "Same-Day Surgical Unit",
     desc: "Short-stay procedures & same-day discharges, hourly recovery bed billing, and fast discharge.",
     highlight: "Fast-Track Day-Care",
     image: "/assets/facilities/daycare.jpg",
@@ -91,10 +91,9 @@ export function FacilityTypesSection() {
 
   const handleScroll = useCallback(() => {
     if (!viewportRef.current) return;
-    const vp = viewportRef.current;
-    const firstSlide = vp.children[0] as HTMLElement | undefined;
-    const slideWidth = firstSlide ? firstSlide.offsetWidth + 20 : vp.clientWidth * 0.33;
-    const index = Math.round(vp.scrollLeft / (slideWidth || 1));
+    const { scrollLeft, clientWidth } = viewportRef.current;
+    const slideWidth = clientWidth * 0.33;
+    const index = Math.round(scrollLeft / (slideWidth || 1));
     setActiveIndex(Math.min(Math.max(index, 0), facilityTypes.length - 1));
   }, []);
 
@@ -151,6 +150,12 @@ export function FacilityTypesSection() {
   return (
     <section
       id="facilities"
+      style={
+        {
+          "--carousel-bg": "#fafaf8",
+          "--carousel-bg-dark": "#0c1017",
+        } as React.CSSProperties
+      }
       className="py-20 sm:py-28 bg-[#fafaf8] dark:bg-[#0c1017] border-b border-line dark:border-line-dark relative overflow-hidden transition-colors"
     >
       <div className="section-container">
@@ -192,90 +197,74 @@ export function FacilityTypesSection() {
         </div>
       </div>
 
-      {/* ─── Snap Carousel Container (Zero Cut-Off, High-Fidelity) ─── */}
-      <div className="w-full max-w-[1500px] mx-auto px-4 sm:px-6">
-        <section
-          className="carousel-cylinder"
-          onMouseDown={onMouseDown}
-          onMouseMove={onMouseMove}
-          onMouseUp={stopDragging}
-          onMouseLeave={stopDragging}
+      {/* ─── 3D Cylinder Curved Carousel (Exact Code Specification) ─── */}
+      <section
+        className="carousel-cylinder"
+        onMouseDown={onMouseDown}
+        onMouseMove={onMouseMove}
+        onMouseUp={stopDragging}
+        onMouseLeave={stopDragging}
+      >
+        <ol
+          ref={viewportRef}
+          className="carousel-viewport"
+          tabIndex={1}
         >
-          <ol
-            ref={viewportRef}
-            className="carousel-viewport overflow-y-hidden no-scrollbar"
-            tabIndex={1}
-          >
-            {facilityTypes.map((type, i) => {
-              const Icon = type.icon;
-              const isCenter = activeIndex === i;
+          {facilityTypes.map((type, i) => {
+            const Icon = type.icon;
+            const isCenter = activeIndex === i;
 
-              return (
-                <li
-                  key={type.label}
-                  className="carousel-slide cursor-pointer"
-                  onClick={() => scrollToSlide(i)}
-                >
-                  <div
-                    className={`carousel-snapper relative w-full h-full rounded-[28px] overflow-hidden transition-all duration-300 ${
-                      isCenter
-                        ? "border-2 border-teal-400 shadow-[0_0_30px_rgba(20,184,166,0.3)] ring-1 ring-teal-400/80 scale-[1.01]"
-                        : "border border-white/15 opacity-90 hover:opacity-100 hover:border-white/30"
+            return (
+              <li key={type.label} className="carousel-slide">
+                <div
+                  className={`carousel-snapper transition-all duration-400 ${isCenter ? "ring-2 ring-teal/50 scale-[1.02]" : "opacity-95"
                     }`}
-                  >
-                    {/* Dedicated Distinct Photographic Background */}
-                    <Image
-                      src={type.image}
-                      alt={type.label}
-                      fill
-                      sizes="(max-width: 640px) 90vw, (max-width: 1024px) 50vw, 33vw"
-                      className="object-cover"
-                      priority={i < 3}
-                    />
+                >
+                  {/* Dedicated Distinct Photographic Background */}
+                  <Image
+                    src={type.image}
+                    alt={type.label}
+                    fill
+                    className="object-cover"
+                  />
 
-                    {/* Dark Vignette Overlay: balanced so photo is visible yet all text is crisp */}
-                    <div className="absolute inset-0 bg-gradient-to-b from-slate-950/85 via-slate-950/65 to-slate-950/90 pointer-events-none" />
+                  {/* Dark Frosted Glass Vignette Overlay */}
+                  <div className="absolute inset-0 bg-gradient-to-t from-slate-950/95 via-slate-950/75 to-slate-900/50" />
 
-                    {/* Card Content: Perfectly balanced flexbox with generous padding, zero clipping */}
-                    <div className="relative z-10 h-full flex flex-col items-center justify-between text-center p-6 sm:p-8">
-                      {/* Upper Info Group */}
-                      <div className="flex flex-col items-center w-full">
-                        {/* Circular Frosted Glass Icon Badge */}
-                        <div className="w-14 h-14 rounded-full bg-teal-500/20 backdrop-blur-md border border-teal-400/40 text-teal-300 flex items-center justify-center mb-4 shadow-lg shadow-teal-500/20">
-                          <Icon className="w-6 h-6 text-teal-300" />
-                        </div>
+                  {/* Centered Safe Content */}
+                  <div className="relative z-10 p-6 flex flex-col items-center justify-center text-center h-full">
+                    {/* Icon Container */}
+                    <div className="w-14 h-14 rounded-2xl bg-teal-500/20 backdrop-blur-md border border-teal-400/30 text-teal-300 flex items-center justify-center mb-3 shadow-lg shadow-teal-500/10">
+                      <Icon className="w-7 h-7" />
+                    </div>
 
-                        {/* Number & Subtitle */}
-                        <span className="text-[11px] font-mono font-bold text-teal-300 uppercase tracking-[0.2em] mb-2">
-                          {type.num} · {type.sub}
-                        </span>
+                    {/* Number & Subtitle */}
+                    <span className="text-[11px] font-mono font-bold text-teal-300 uppercase tracking-widest mb-1.5">
+                      {type.num} · {type.sub}
+                    </span>
 
-                        {/* Facility Title */}
-                        <h3 className="font-display text-2xl sm:text-[26px] font-bold text-white tracking-tight leading-snug drop-shadow-md mb-2.5">
-                          {type.label}
-                        </h3>
+                    {/* Facility Title */}
+                    <h3 className="font-display text-xl sm:text-2xl font-bold text-white tracking-tight leading-snug drop-shadow-md">
+                      {type.label}
+                    </h3>
 
-                        {/* Clean Description */}
-                        <p className="text-xs sm:text-[13px] text-slate-200/90 leading-relaxed max-w-[270px] mx-auto">
-                          {type.desc}
-                        </p>
-                      </div>
+                    {/* Clean Description */}
+                    <p className="text-xs sm:text-[13px] text-slate-200/90 leading-relaxed mt-2.5 max-w-[260px] mx-auto">
+                      {type.desc}
+                    </p>
 
-                      {/* Bottom Key Capability Pill Badge */}
-                      <div className="pt-4 w-full flex justify-center">
-                        <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-slate-950/65 backdrop-blur-md border border-white/20 text-xs sm:text-[12px] text-teal-200 font-medium shadow-md">
-                          <CheckCircle2 className="w-3.5 h-3.5 text-teal-400 shrink-0" />
-                          <span className="truncate">{type.highlight}</span>
-                        </div>
-                      </div>
+                    {/* Key Capability Tag Pill */}
+                    <div className="mt-4 inline-flex items-center gap-1.5 px-3.5 py-1 rounded-full bg-white/10 backdrop-blur-md border border-white/15 text-[11px] text-teal-200 font-medium">
+                      <CheckCircle2 className="w-3.5 h-3.5 text-teal-300 shrink-0" />
+                      <span>{type.highlight}</span>
                     </div>
                   </div>
-                </li>
-              );
-            })}
-          </ol>
-        </section>
-      </div>
+                </div>
+              </li>
+            );
+          })}
+        </ol>
+      </section>
 
       {/* ─── Pagination Dots Indicator ─── */}
       <div className="section-container mt-6">
@@ -285,11 +274,10 @@ export function FacilityTypesSection() {
               key={type.label}
               onClick={() => scrollToSlide(i)}
               aria-label={`Go to ${type.label}`}
-              className={`h-2 rounded-full transition-all duration-300 ${
-                activeIndex === i
+              className={`h-2 rounded-full transition-all duration-300 ${activeIndex === i
                   ? "w-8 bg-teal"
                   : "w-2 bg-border hover:bg-ink-soft/40 dark:hover:bg-cream-soft/40"
-              }`}
+                }`}
             />
           ))}
         </div>
