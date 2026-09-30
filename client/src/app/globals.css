@@ -336,94 +336,106 @@
     scrollbar-width: none;
   }
 
-  /* ─── 3D Cylinder Curved Carousel ─────────────────────────────────────────── */
-  .cylinder-carousel {
+  /* ─── 3D Cylinder Curved Carousel (User's Exact Specification) ─────────── */
+  .carousel-cylinder {
     position: relative;
     width: 100%;
+    height: 480px;
+    perspective: 120px;
     overflow: hidden;
     cursor: grab;
     user-select: none;
   }
 
-  .cylinder-carousel:active {
+  .carousel-cylinder:active {
     cursor: grabbing;
   }
 
-  /* Left & Right Horizon Edge Vignettes */
-  .cylinder-carousel::before,
-  .cylinder-carousel::after {
+  .carousel-cylinder::before {
+    top: -475%;
+  }
+
+  .carousel-cylinder::after {
+    bottom: -475%;
+  }
+
+  .carousel-cylinder::before,
+  .carousel-cylinder::after {
     content: "";
     position: absolute;
-    top: 0;
-    bottom: 0;
-    width: 48px;
     z-index: 10;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 500%;
+    height: 500%;
+    border-radius: 50%;
+    background: var(--carousel-bg, #fafaf8);
     pointer-events: none;
-    transition: opacity 0.3s;
+    transition: background-color 0.3s;
   }
 
-  .cylinder-carousel::before {
-    left: 0;
-    background: linear-gradient(to right, var(--carousel-bg, #fafaf8), transparent);
+  .dark .carousel-cylinder::before,
+  .dark .carousel-cylinder::after {
+    background: var(--carousel-bg-dark, #0c1017);
   }
 
-  .cylinder-carousel::after {
-    right: 0;
-    background: linear-gradient(to left, var(--carousel-bg, #fafaf8), transparent);
-  }
-
-  .dark .cylinder-carousel::before {
-    background: linear-gradient(to right, var(--carousel-bg-dark, #0c1017), transparent);
-  }
-
-  .dark .cylinder-carousel::after {
-    background: linear-gradient(to left, var(--carousel-bg-dark, #0c1017), transparent);
-  }
-
-  @media (min-width: 768px) {
-    .cylinder-carousel::before,
-    .cylinder-carousel::after {
-      width: 72px;
-    }
-  }
-
-  .cylinder-viewport {
+  .carousel-viewport {
+    position: absolute;
+    inset: 0;
     display: flex;
-    overflow-x: auto;
+    overflow-x: scroll;
+    counter-reset: item;
     scroll-behavior: smooth;
     scroll-snap-type: x mandatory;
     scrollbar-width: none;
     -ms-overflow-style: none;
     -webkit-overflow-scrolling: touch;
-    padding: 16px 8px;
+    align-items: center;
+    padding: 0 16px;
   }
 
-  .cylinder-viewport::-webkit-scrollbar {
+  .carousel-viewport::-webkit-scrollbar {
     display: none;
   }
 
-  .cylinder-slide {
+  .carousel-slide {
     position: relative;
     flex: 0 0 85%;
+    height: 380px;
     scroll-snap-align: center;
-    transition: transform 0.4s cubic-bezier(0.25, 1, 0.5, 1), opacity 0.4s ease;
+    counter-increment: item;
+    padding: 0 12px;
+    transition: transform 0.4s ease;
   }
 
   @media (min-width: 640px) {
-    .cylinder-slide {
-      flex: 0 0 48%;
+    .carousel-slide {
+      flex: 0 0 50%;
     }
   }
 
   @media (min-width: 768px) {
-    .cylinder-slide {
+    .carousel-slide {
       flex: 0 0 35%;
     }
   }
 
   @media (min-width: 1024px) {
-    .cylinder-slide {
+    .carousel-slide {
       flex: 0 0 28%;
     }
+  }
+
+  .carousel-snapper {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    border-radius: 28px;
+    overflow: hidden;
+    scroll-snap-align: center;
+    background-size: cover;
+    background-position: center;
+    box-shadow: 0 12px 36px -10px rgba(0, 0, 0, 0.3);
+    border: 2px solid rgba(255, 255, 255, 0.15);
   }
 }

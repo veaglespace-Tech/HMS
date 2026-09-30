@@ -2,7 +2,6 @@
 
 import { useState, useRef, useEffect, useCallback } from "react";
 import Image from "next/image";
-import Link from "next/link";
 import {
   Building2,
   Stethoscope,
@@ -13,7 +12,6 @@ import {
   ChevronLeft,
   ChevronRight,
   CheckCircle2,
-  ArrowRight,
   Sparkles,
 } from "lucide-react";
 
@@ -22,11 +20,9 @@ interface FacilityType {
   icon: React.ComponentType<{ className?: string }>;
   label: string;
   sub: string;
-  tag: string;
   desc: string;
-  highlights: string[];
+  highlight: string;
   image: string;
-  badgeColor: string;
 }
 
 const facilityTypes: FacilityType[] = [
@@ -34,106 +30,69 @@ const facilityTypes: FacilityType[] = [
     num: "01",
     icon: Stethoscope,
     label: "Private Clinic",
-    sub: "Solo or Group Practice",
-    tag: "1 - 5 Consulting Rooms",
-    desc: "Purpose-built for independent doctors: automated OPD token calling, fast UHID generation, and rapid E-prescriptions.",
-    highlights: [
-      "OPD Token Queue & Hall Displays",
-      "Fast E-Rx with Formulary Lookup",
-      "Instant Billing & UPI QR Receipts",
-    ],
-    image: "/assets/reception-lobby.jpg",
-    badgeColor: "badge-teal",
+    sub: "Solo & Group Practice",
+    desc: "Solo or group practice with OPD queues, fast UHID generation, and rapid E-prescriptions.",
+    highlight: "OPD Token Queue & Fast E-Rx",
+    image: "/assets/facilities/clinic.jpg",
   },
   {
     num: "02",
     icon: Building2,
     label: "Polyclinic",
     sub: "Multi-Specialty OPD",
-    tag: "5 - 15 Specialist Doctors",
-    desc: "Multi-consultant appointment roster scheduling, shared diagnostic sample collection, and central pharmacy integration.",
-    highlights: [
-      "Multi-Specialty Roster Matrix",
-      "Shared Diagnostic Sample Desk",
-      "Central Pharmacy POS Dispense",
-    ],
-    image: "/assets/medical-team.jpg",
-    badgeColor: "badge-amber",
+    desc: "Multi-consultant appointment roster scheduling, shared diagnostic sample desk, and central pharmacy.",
+    highlight: "Specialist Roster Matrix",
+    image: "/assets/facilities/polyclinic.jpg",
   },
   {
     num: "03",
     icon: HeartPulse,
     label: "Nursing Home",
-    sub: "Inpatient & Ward Care",
-    tag: "10 - 50 Inpatient Beds",
-    desc: "Real-time visual bed matrix, nurse station vital charts, doctor round notes, and one-click discharge clearance checklist.",
-    highlights: [
-      "Real-Time Ward & Bed Matrix",
-      "Nurse Station MAR Vital Charts",
-      "Consolidated IPD Discharge Billing",
-    ],
-    image: "/assets/patient-care.jpg",
-    badgeColor: "badge-teal",
+    sub: "Inpatient Ward Care",
+    desc: "IPD + OPD with ward & bed management, nurse station MAR charts, and discharge summaries.",
+    highlight: "Live Ward & Bed Matrix",
+    image: "/assets/facilities/nursing-home.jpg",
   },
   {
     num: "04",
     icon: Hospital,
     label: "Multispecialty Hospital",
-    sub: "Tertiary Healthcare Center",
-    tag: "50 - 500+ Beds",
-    desc: "28 clinical departments, 24/7 ICU telemetry, OT slot scheduling, NABH compliance audit trails, and multi-tenant security.",
-    highlights: [
-      "28 Clinical Department Workflows",
-      "ICU Telemetry & OT Slot Matrix",
-      "NABH & ABDM M1-M3 Certified",
-    ],
-    image: "/assets/hero-banner.jpg",
-    badgeColor: "badge-coral",
+    sub: "Full-Scale Tertiary Facility",
+    desc: "Full-scale hospital with 28 departments, 24/7 ICU telemetry, and OT slot scheduling.",
+    highlight: "28 Clinical Departments",
+    image: "/assets/facilities/multispecialty.jpg",
   },
   {
     num: "05",
     icon: FlaskConical,
     label: "Diagnostic Centre",
     sub: "Pathology & Radiology",
-    tag: "LIS & RIS Hub",
-    desc: "Barcoded sample accessioning, bidirectional analyzer interfacing, zero-footprint web DICOM viewer, and automated report dispatch.",
-    highlights: [
-      "Bidirectional Lab Analyzer Sync",
-      "Web DICOM Viewer for X-Ray/CT",
-      "Automated WhatsApp & SMS Reports",
-    ],
-    image: "/assets/doctor-female.jpg",
-    badgeColor: "badge-teal",
+    desc: "Pathology and radiology reporting, bidirectional analyzer sync, and automated report dispatch.",
+    highlight: "Automated Analyzer Sync",
+    image: "/assets/facilities/diagnostic.jpg",
   },
   {
     num: "06",
     icon: Sun,
     label: "Day Care Centre",
     sub: "Same-Day Surgical Unit",
-    tag: "Short-Stay & Minor OT",
-    desc: "Rapid day-care admission, pre-op clearance checks, hourly recovery bed billing, and fast-track discharge protocols.",
-    highlights: [
-      "Fast-Track Day-Care Admission",
-      "Hourly Recovery Bed Allocation",
-      "Same-Day Discharge Summary",
-    ],
-    image: "/assets/reception-lobby.jpg",
-    badgeColor: "badge-amber",
+    desc: "Short-stay procedures & same-day discharges, hourly recovery bed billing, and fast discharge.",
+    highlight: "Fast-Track Day-Care",
+    image: "/assets/facilities/daycare.jpg",
   },
 ];
 
 export function FacilityTypesSection() {
-  const viewportRef = useRef<HTMLDivElement>(null);
+  const viewportRef = useRef<HTMLOListElement>(null);
   const [activeIndex, setActiveIndex] = useState(0);
   const [isDragging, setIsDragging] = useState(false);
   const [startX, setStartX] = useState(0);
   const [scrollLeft, setScrollLeft] = useState(0);
 
-  // Update active slide indicator based on scroll position
   const handleScroll = useCallback(() => {
     if (!viewportRef.current) return;
     const { scrollLeft, clientWidth } = viewportRef.current;
-    const slideWidth = clientWidth * 0.35;
+    const slideWidth = clientWidth * 0.33;
     const index = Math.round(scrollLeft / (slideWidth || 1));
     setActiveIndex(Math.min(Math.max(index, 0), facilityTypes.length - 1));
   }, []);
@@ -238,103 +197,75 @@ export function FacilityTypesSection() {
         </div>
       </div>
 
-      {/* ─── Modern Facility Carousel ─── */}
-      <div
-        className="cylinder-carousel"
+      {/* ─── 3D Cylinder Curved Carousel (Exact Code Specification) ─── */}
+      <section
+        className="carousel-cylinder"
         onMouseDown={onMouseDown}
         onMouseMove={onMouseMove}
         onMouseUp={stopDragging}
         onMouseLeave={stopDragging}
       >
-        <div
+        <ol
           ref={viewportRef}
-          className="cylinder-viewport max-w-7xl mx-auto"
+          className="carousel-viewport"
+          tabIndex={1}
         >
           {facilityTypes.map((type, i) => {
             const Icon = type.icon;
             const isCenter = activeIndex === i;
 
             return (
-              <div key={type.label} className="cylinder-slide px-2.5 sm:px-3">
+              <li key={type.label} className="carousel-slide">
                 <div
-                  className={`h-[510px] rounded-[24px] overflow-hidden relative border transition-all duration-400 flex flex-col justify-between p-4 sm:p-5 bg-white dark:bg-card shadow-soft group select-none ${
-                    isCenter
-                      ? "border-teal/50 shadow-2xl ring-2 ring-teal/30 scale-[1.01]"
-                      : "border-border/80 dark:border-white/10 hover:border-teal/40 hover:shadow-medium"
+                  className={`carousel-snapper transition-all duration-400 ${
+                    isCenter ? "ring-2 ring-teal/50 scale-[1.02]" : "opacity-95"
                   }`}
                 >
-                  <div>
-                    {/* Visual Banner Header with Photographic Backdrop */}
-                    <div className="relative h-36 sm:h-40 w-full rounded-2xl overflow-hidden mb-3.5 border border-border/40 dark:border-white/10 shadow-sm shrink-0 bg-slate-900">
-                      <Image
-                        src={type.image}
-                        alt={type.label}
-                        fill
-                        className="object-cover group-hover:scale-105 transition-transform duration-700 opacity-80"
-                      />
-                      {/* Gradient Vignette over Banner */}
-                      <div className="absolute inset-0 bg-gradient-to-t from-slate-950/90 via-slate-950/45 to-black/20" />
+                  {/* Dedicated Distinct Photographic Background */}
+                  <Image
+                    src={type.image}
+                    alt={type.label}
+                    fill
+                    className="object-cover"
+                  />
 
-                      {/* Floating Badges inside Banner */}
-                      <div className="absolute inset-0 p-3 flex flex-col justify-between z-10">
-                        <div className="flex items-center justify-between">
-                          <div className="w-9 h-9 rounded-xl bg-white/20 backdrop-blur-md border border-white/30 text-white flex items-center justify-center shadow-md">
-                            <Icon className="w-5 h-5" />
-                          </div>
-                          <span className="px-2.5 py-0.5 rounded-full text-[10px] sm:text-[11px] font-semibold bg-white/20 backdrop-blur-md text-white border border-white/30 shadow-sm">
-                            {type.tag}
-                          </span>
-                        </div>
+                  {/* Dark Frosted Glass Vignette Overlay */}
+                  <div className="absolute inset-0 bg-gradient-to-t from-slate-950/95 via-slate-950/75 to-slate-900/50" />
 
-                        <div>
-                          <span className="font-mono text-[10px] font-bold text-teal-300 uppercase tracking-wider block">
-                            {type.num} · {type.sub}
-                          </span>
-                          <h3 className="font-display text-base sm:text-lg font-bold text-white tracking-tight leading-snug drop-shadow-sm">
-                            {type.label}
-                          </h3>
-                        </div>
-                      </div>
+                  {/* Centered Safe Content */}
+                  <div className="relative z-10 p-6 flex flex-col items-center justify-center text-center h-full">
+                    {/* Icon Container */}
+                    <div className="w-14 h-14 rounded-2xl bg-teal-500/20 backdrop-blur-md border border-teal-400/30 text-teal-300 flex items-center justify-center mb-3 shadow-lg shadow-teal-500/10">
+                      <Icon className="w-7 h-7" />
                     </div>
 
-                    {/* Description */}
-                    <p className="text-xs sm:text-[13px] text-ink-soft dark:text-cream-soft leading-relaxed line-clamp-2 px-0.5">
+                    {/* Number & Subtitle */}
+                    <span className="text-[11px] font-mono font-bold text-teal-300 uppercase tracking-widest mb-1.5">
+                      {type.num} · {type.sub}
+                    </span>
+
+                    {/* Facility Title */}
+                    <h3 className="font-display text-xl sm:text-2xl font-bold text-white tracking-tight leading-snug drop-shadow-md">
+                      {type.label}
+                    </h3>
+
+                    {/* Clean Description */}
+                    <p className="text-xs sm:text-[13px] text-slate-200/90 leading-relaxed mt-2.5 max-w-[260px] mx-auto">
                       {type.desc}
                     </p>
 
-                    {/* Pre-Configured Setup Features Box */}
-                    <div className="bg-muted/40 dark:bg-white/[0.03] border border-border/60 dark:border-white/10 rounded-xl p-3 mt-3 space-y-1.5">
-                      <div className="text-[10px] font-bold uppercase tracking-wider text-teal dark:text-teal-bright">
-                        Pre-Configured Setup
-                      </div>
-                      {type.highlights.map((item) => (
-                        <div key={item} className="flex items-start gap-2 text-xs text-foreground/90 font-medium">
-                          <CheckCircle2 className="w-3.5 h-3.5 text-teal shrink-0 mt-0.5" />
-                          <span className="leading-tight">{item}</span>
-                        </div>
-                      ))}
+                    {/* Key Capability Tag Pill */}
+                    <div className="mt-4 inline-flex items-center gap-1.5 px-3.5 py-1 rounded-full bg-white/10 backdrop-blur-md border border-white/15 text-[11px] text-teal-200 font-medium">
+                      <CheckCircle2 className="w-3.5 h-3.5 text-teal-300 shrink-0" />
+                      <span>{type.highlight}</span>
                     </div>
                   </div>
-
-                  {/* Bottom Action Footer */}
-                  <div className="pt-3 border-t border-border/60 dark:border-white/10 flex items-center justify-between shrink-0">
-                    <Link
-                      href="/register-hospital"
-                      className="inline-flex items-center gap-1.5 text-xs font-semibold text-teal dark:text-teal-bright hover:underline group/link"
-                    >
-                      <span>Configure this setup</span>
-                      <ArrowRight className="w-3.5 h-3.5 transition-transform group-hover/link:translate-x-1" />
-                    </Link>
-                    <span className="font-mono text-[11px] text-ink-soft dark:text-cream-soft">
-                      {type.num} / 06
-                    </span>
-                  </div>
                 </div>
-              </div>
+              </li>
             );
           })}
-        </div>
-      </div>
+        </ol>
+      </section>
 
       {/* ─── Pagination Dots Indicator ─── */}
       <div className="section-container mt-6">
