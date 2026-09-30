@@ -277,7 +277,7 @@ export function HospitalCapabilitiesSection() {
                 key={cap.id}
                 onMouseEnter={() => setActiveId(cap.id)}
                 onClick={() => setActiveId(cap.id)}
-                className={`relative overflow-hidden rounded-[26px] transition-all duration-500 ease-[cubic-bezier(0.25,1,0.5,1)] ${
+                className={`relative overflow-hidden rounded-[26px] transition-all duration-500 ease-out ${
                   isActive
                     ? "flex-[3.8] lg:flex-[4.2] min-w-[360px] lg:min-w-[460px] shadow-2xl ring-2 ring-teal/50 dark:ring-teal/60 cursor-default"
                     : "flex-[0.75] lg:flex-[0.85] min-w-[68px] lg:min-w-[80px] max-w-[105px] opacity-80 hover:opacity-100 cursor-pointer border border-border/70 dark:border-white/10 hover:border-teal/40"
