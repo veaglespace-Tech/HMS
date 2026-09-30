@@ -30,7 +30,7 @@ const facilityTypes: FacilityType[] = [
     num: "01",
     icon: Stethoscope,
     label: "Private Clinic",
-    sub: "Solo & Group Practice",
+    sub: "SOLO & GROUP PRACTICE",
     desc: "Solo or group practice with OPD queues, fast UHID generation, and rapid E-prescriptions.",
     highlight: "OPD Token Queue & Fast E-Rx",
     image: "/assets/facilities/clinic.jpg",
@@ -39,7 +39,7 @@ const facilityTypes: FacilityType[] = [
     num: "02",
     icon: Building2,
     label: "Polyclinic",
-    sub: "Multi-Specialty OPD",
+    sub: "MULTI-SPECIALTY OPD",
     desc: "Multi-consultant appointment roster scheduling, shared diagnostic sample desk, and central pharmacy.",
     highlight: "Specialist Roster Matrix",
     image: "/assets/facilities/polyclinic.jpg",
@@ -48,7 +48,7 @@ const facilityTypes: FacilityType[] = [
     num: "03",
     icon: HeartPulse,
     label: "Nursing Home",
-    sub: "Inpatient Ward Care",
+    sub: "INPATIENT WARD CARE",
     desc: "IPD + OPD with ward & bed management, nurse station MAR charts, and discharge summaries.",
     highlight: "Live Ward & Bed Matrix",
     image: "/assets/facilities/nursing-home.jpg",
@@ -57,7 +57,7 @@ const facilityTypes: FacilityType[] = [
     num: "04",
     icon: Hospital,
     label: "Multispecialty Hospital",
-    sub: "Full-Scale Tertiary Facility",
+    sub: "FULL-SCALE TERTIARY",
     desc: "Full-scale hospital with 28 departments, 24/7 ICU telemetry, and OT slot scheduling.",
     highlight: "28 Clinical Departments",
     image: "/assets/facilities/multispecialty.jpg",
@@ -66,7 +66,7 @@ const facilityTypes: FacilityType[] = [
     num: "05",
     icon: FlaskConical,
     label: "Diagnostic Centre",
-    sub: "Pathology & Radiology",
+    sub: "PATHOLOGY & RADIOLOGY",
     desc: "Pathology and radiology reporting, bidirectional analyzer sync, and automated report dispatch.",
     highlight: "Automated Analyzer Sync",
     image: "/assets/facilities/diagnostic.jpg",
@@ -75,7 +75,7 @@ const facilityTypes: FacilityType[] = [
     num: "06",
     icon: Sun,
     label: "Day Care Centre",
-    sub: "Same-Day Surgical Unit",
+    sub: "SAME-DAY SURGICAL",
     desc: "Short-stay procedures & same-day discharges, hourly recovery bed billing, and fast discharge.",
     highlight: "Fast-Track Day-Care",
     image: "/assets/facilities/daycare.jpg",
@@ -91,9 +91,10 @@ export function FacilityTypesSection() {
 
   const handleScroll = useCallback(() => {
     if (!viewportRef.current) return;
-    const { scrollLeft, clientWidth } = viewportRef.current;
-    const slideWidth = clientWidth * 0.33;
-    const index = Math.round(scrollLeft / (slideWidth || 1));
+    const vp = viewportRef.current;
+    const firstSlide = vp.children[0] as HTMLElement | undefined;
+    const slideWidth = firstSlide ? firstSlide.offsetWidth + 16 : vp.clientWidth * 0.3;
+    const index = Math.round(vp.scrollLeft / (slideWidth || 1));
     setActiveIndex(Math.min(Math.max(index, 0), facilityTypes.length - 1));
   }, []);
 
@@ -215,46 +216,55 @@ export function FacilityTypesSection() {
             const isCenter = activeIndex === i;
 
             return (
-              <li key={type.label} className="carousel-slide">
+              <li
+                key={type.label}
+                className="carousel-slide cursor-pointer"
+                onClick={() => scrollToSlide(i)}
+              >
                 <div
-                  className={`carousel-snapper transition-all duration-400 ${isCenter ? "ring-2 ring-teal/50 scale-[1.02]" : "opacity-95"
-                    }`}
+                  className={`carousel-snapper transition-all duration-400 ${
+                    isCenter
+                      ? "ring-2 ring-teal-400 border-2 border-teal-400/90 shadow-[0_0_30px_rgba(20,184,166,0.35)] scale-[1.01]"
+                      : "opacity-95 hover:opacity-100"
+                  }`}
                 >
                   {/* Dedicated Distinct Photographic Background */}
                   <Image
                     src={type.image}
                     alt={type.label}
                     fill
+                    sizes="(max-width: 640px) 85vw, (max-width: 1024px) 45vw, 28vw"
                     className="object-cover"
+                    priority={i < 3}
                   />
 
                   {/* Dark Frosted Glass Vignette Overlay */}
-                  <div className="absolute inset-0 bg-gradient-to-t from-slate-950/95 via-slate-950/75 to-slate-900/50" />
+                  <div className="absolute inset-0 bg-gradient-to-t from-slate-950/95 via-slate-950/75 to-slate-900/60 pointer-events-none" />
 
-                  {/* Centered Safe Content */}
-                  <div className="relative z-10 p-6 flex flex-col items-center justify-center text-center h-full">
-                    {/* Icon Container */}
-                    <div className="w-14 h-14 rounded-2xl bg-teal-500/20 backdrop-blur-md border border-teal-400/30 text-teal-300 flex items-center justify-center mb-3 shadow-lg shadow-teal-500/10">
-                      <Icon className="w-7 h-7" />
+                  {/* Centered Safe Content - Generous py-24 padding ensures zero clipping by curve */}
+                  <div className="relative z-10 py-24 px-6 flex flex-col items-center justify-center text-center h-full">
+                    {/* Circular Icon Container */}
+                    <div className="w-14 h-14 rounded-full bg-teal-500/20 backdrop-blur-md border border-teal-400/40 text-teal-300 flex items-center justify-center mb-3 shadow-lg shadow-teal-500/15">
+                      <Icon className="w-6 h-6 text-teal-300" />
                     </div>
 
                     {/* Number & Subtitle */}
                     <span className="text-[11px] font-mono font-bold text-teal-300 uppercase tracking-widest mb-1.5">
-                      {type.num} · {type.sub}
+                      {type.num} • {type.sub}
                     </span>
 
                     {/* Facility Title */}
-                    <h3 className="font-display text-xl sm:text-2xl font-bold text-white tracking-tight leading-snug drop-shadow-md">
+                    <h3 className="font-display text-xl sm:text-2xl font-bold text-white tracking-tight leading-snug drop-shadow-md mb-2">
                       {type.label}
                     </h3>
 
                     {/* Clean Description */}
-                    <p className="text-xs sm:text-[13px] text-slate-200/90 leading-relaxed mt-2.5 max-w-[260px] mx-auto">
+                    <p className="text-xs sm:text-[13px] text-slate-200/90 leading-relaxed max-w-[260px] mx-auto mb-4">
                       {type.desc}
                     </p>
 
                     {/* Key Capability Tag Pill */}
-                    <div className="mt-4 inline-flex items-center gap-1.5 px-3.5 py-1 rounded-full bg-white/10 backdrop-blur-md border border-white/15 text-[11px] text-teal-200 font-medium">
+                    <div className="inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-full bg-slate-950/70 backdrop-blur-md border border-white/20 text-[11px] sm:text-xs text-teal-200 font-medium shadow-md">
                       <CheckCircle2 className="w-3.5 h-3.5 text-teal-300 shrink-0" />
                       <span>{type.highlight}</span>
                     </div>
@@ -274,10 +284,11 @@ export function FacilityTypesSection() {
               key={type.label}
               onClick={() => scrollToSlide(i)}
               aria-label={`Go to ${type.label}`}
-              className={`h-2 rounded-full transition-all duration-300 ${activeIndex === i
+              className={`h-2 rounded-full transition-all duration-300 ${
+                activeIndex === i
                   ? "w-8 bg-teal"
                   : "w-2 bg-border hover:bg-ink-soft/40 dark:hover:bg-cream-soft/40"
-                }`}
+              }`}
             />
           ))}
         </div>
