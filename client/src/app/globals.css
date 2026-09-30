@@ -326,7 +326,6 @@
   .accordion-vertical-text {
     writing-mode: vertical-rl;
     transform: rotate(180deg);
-    text-orientation: mixed;
   }
 
   .no-scrollbar::-webkit-scrollbar {
@@ -335,5 +334,87 @@
   .no-scrollbar {
     -ms-overflow-style: none;
     scrollbar-width: none;
+  }
+
+  /* ─── 3D Cylinder Curved Carousel ─────────────────────────────────────────── */
+  .cylinder-carousel {
+    position: relative;
+    width: 100%;
+    overflow: hidden;
+    cursor: grab;
+    user-select: none;
+  }
+
+  .cylinder-carousel:active {
+    cursor: grabbing;
+  }
+
+  .cylinder-carousel::before,
+  .cylinder-carousel::after {
+    content: "";
+    position: absolute;
+    z-index: 10;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 480%;
+    height: 480%;
+    border-radius: 50%;
+    pointer-events: none;
+    transition: background-color 0.3s;
+  }
+
+  .cylinder-carousel::before {
+    top: -462%;
+    background: var(--carousel-bg, #fbfbf9);
+  }
+
+  .cylinder-carousel::after {
+    bottom: -462%;
+    background: var(--carousel-bg, #fbfbf9);
+  }
+
+  .dark .cylinder-carousel::before,
+  .dark .cylinder-carousel::after {
+    background: var(--carousel-bg-dark, #0d1219);
+  }
+
+  .cylinder-viewport {
+    display: flex;
+    overflow-x: auto;
+    scroll-behavior: smooth;
+    scroll-snap-type: x mandatory;
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+    -webkit-overflow-scrolling: touch;
+    padding: 35px 20px;
+  }
+
+  .cylinder-viewport::-webkit-scrollbar {
+    display: none;
+  }
+
+  .cylinder-slide {
+    position: relative;
+    flex: 0 0 85%;
+    scroll-snap-align: center;
+    transition: transform 0.4s ease, opacity 0.4s ease;
+  }
+
+  @media (min-width: 640px) {
+    .cylinder-slide {
+      flex: 0 0 50%;
+    }
+  }
+
+  @media (min-width: 768px) {
+    .cylinder-slide {
+      flex: 0 0 38%;
+    }
+  }
+
+  @media (min-width: 1024px) {
+    .cylinder-slide {
+      flex: 0 0 30%;
+    }
   }
 }
