@@ -203,7 +203,7 @@ export function FacilityTypesSection() {
         >
           <ol
             ref={viewportRef}
-            className="carousel-viewport"
+            className="carousel-viewport overflow-y-hidden no-scrollbar"
             tabIndex={1}
           >
             {facilityTypes.map((type, i) => {

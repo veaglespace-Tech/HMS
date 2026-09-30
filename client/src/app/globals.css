@@ -342,8 +342,18 @@
     width: 100%;
     cursor: grab;
     user-select: none;
-    overflow: hidden;
+    overflow: hidden !important;
+    overflow-x: hidden !important;
+    overflow-y: hidden !important;
     padding: 10px 0 16px 0;
+    scrollbar-width: none !important;
+    -ms-overflow-style: none !important;
+  }
+
+  .carousel-cylinder::-webkit-scrollbar {
+    display: none !important;
+    width: 0 !important;
+    height: 0 !important;
   }
 
   .carousel-cylinder:active {
@@ -355,18 +365,29 @@
     width: 100%;
     display: flex;
     overflow-x: auto;
+    overflow-y: hidden !important;
     counter-reset: item;
     scroll-behavior: smooth;
     scroll-snap-type: x mandatory;
-    scrollbar-width: none;
-    -ms-overflow-style: none;
+    scrollbar-width: none !important;
+    scrollbar-color: transparent transparent !important;
+    -ms-overflow-style: none !important;
     -webkit-overflow-scrolling: touch;
     padding: 12px 24px;
     gap: 20px;
   }
 
-  .carousel-viewport::-webkit-scrollbar {
-    display: none;
+  .carousel-viewport::-webkit-scrollbar,
+  .carousel-viewport *::-webkit-scrollbar {
+    display: none !important;
+    width: 0 !important;
+    height: 0 !important;
+  }
+
+  .carousel-viewport::-webkit-scrollbar-thumb,
+  .carousel-viewport::-webkit-scrollbar-track {
+    display: none !important;
+    background: transparent !important;
   }
 
   .carousel-slide {
