@@ -464,21 +464,30 @@
     position: relative;
     overflow: hidden;
     width: 100%;
-    min-height: 440px;
-    height: 460px;
+    min-height: 560px;
+    height: 600px;
     display: flex;
     align-items: center;
   }
 
+  @media (min-width: 640px) {
+    .creative-showcase--slider .swiper-slide {
+      min-height: 600px;
+      height: 640px;
+    }
+  }
+
   @media (min-width: 1024px) {
     .creative-showcase--slider .swiper-slide {
-      height: 470px;
+      min-height: 640px;
+      height: 680px;
     }
   }
 
   @media (min-width: 1440px) {
     .creative-showcase--slider .swiper-slide {
-      height: 480px;
+      min-height: 680px;
+      height: 720px;
     }
   }
 
